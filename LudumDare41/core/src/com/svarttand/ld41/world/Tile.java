@@ -11,12 +11,17 @@ public class Tile {
 	
 	private ArrayList<Tile> neighbours;
 	
+	private boolean passable;
+	
+	private Tile parent;
+	
 
 	public Tile(float x, float y){
 		posX = x;
 		posY = y;
 		neighbours = new ArrayList<Tile>();
 		path = "Tile";
+		passable = true;
 	}
 	
 	public void addNeighbour(Tile neighbour){
@@ -43,5 +48,24 @@ public class Tile {
 		path = string;
 	}
 	
+	public boolean isPassable(){
+		return passable;
+	}
+
+	public Tile getParent() {
+		// TODO Auto-generated method stub
+		return parent;
+	}
+	
+	public void setParent(Tile p){
+		parent = p;
+	}
+	
+	public boolean isSame(Tile tile){
+		if (posX == tile.getPosX() && posY == tile.posY) {
+			return true;
+		}
+		return false;
+	}
 	
 }

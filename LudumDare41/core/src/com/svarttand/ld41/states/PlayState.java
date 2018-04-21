@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
+import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.world.TileMap;
 
 public class PlayState extends State{
@@ -18,6 +19,8 @@ public class PlayState extends State{
 	private TileMap map;
 	private GameController controller;
 	private InputMultiplexer multiplexer;
+	
+	private MobHandler mobHandler;
 
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
 		super(gsm);
@@ -25,6 +28,8 @@ public class PlayState extends State{
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		map = new TileMap();
 		textureAtlas = atlas;
+		
+		mobHandler = new MobHandler(map, map.getTile(15, 15));
 		controller = new GameController(this);
 		multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(controller);
@@ -41,7 +46,7 @@ public class PlayState extends State{
 
 	@Override
 	public void update(float delta) {
-		
+		mobHandler.update(delta);
 	}
 
 	@Override
@@ -51,6 +56,7 @@ public class PlayState extends State{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		map.render(batch, textureAtlas);
+		mobHandler.render(batch, textureAtlas);
 		batch.end();
 		
 	}
