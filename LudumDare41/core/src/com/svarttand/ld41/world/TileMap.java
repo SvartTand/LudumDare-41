@@ -41,6 +41,11 @@ public class TileMap {
 			}
 		}
 	}
+
+	public void convert(int screenX, int screenY) {
+		map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)].setPath("Tower");
+		
+	}
 	
 
 }

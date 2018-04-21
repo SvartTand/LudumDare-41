@@ -1,12 +1,14 @@
 package com.svarttand.ld41.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
+import com.svarttand.ld41.input.GameController;
 import com.svarttand.ld41.world.TileMap;
 
 public class PlayState extends State{
@@ -14,6 +16,8 @@ public class PlayState extends State{
 	private TextureAtlas textureAtlas;
 	private Viewport viewport;
 	private TileMap map;
+	private GameController controller;
+	private InputMultiplexer multiplexer;
 
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
 		super(gsm);
@@ -21,6 +25,11 @@ public class PlayState extends State{
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		map = new TileMap();
 		textureAtlas = atlas;
+		controller = new GameController(this);
+		multiplexer = new InputMultiplexer();
+		multiplexer.addProcessor(controller);
+		
+		Gdx.input.setInputProcessor(multiplexer);
 		
 	}
 
@@ -32,7 +41,6 @@ public class PlayState extends State{
 
 	@Override
 	public void update(float delta) {
-		System.out.println("ready");
 		
 	}
 
@@ -57,6 +65,10 @@ public class PlayState extends State{
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 		
+	}
+
+	public TileMap getMap() {
+		return map;
 	}
 
 }

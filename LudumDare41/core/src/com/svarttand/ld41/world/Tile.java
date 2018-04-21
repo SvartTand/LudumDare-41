@@ -38,6 +38,10 @@ public class Tile {
 	public String getPath() {
 		return path;
 	}
+
+	public void setPath(String string) {
+		path = string;
+	}
 	
 	
 }
