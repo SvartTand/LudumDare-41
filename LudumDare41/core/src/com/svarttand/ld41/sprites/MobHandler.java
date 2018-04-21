@@ -1,6 +1,7 @@
 package com.svarttand.ld41.sprites;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,22 +9,45 @@ import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.Tile;
 
 public class MobHandler {
-	public static final int DEST_X = 17;
-	public static final int DEST_Y = 17;
+	public static final float WAVE_FREQUENCY = 20;
 	private ArrayList<Mob> mobList;
 	
 	private PlayState state;
-	private float freq;
+	
 	private float sum;
+	private Random random;
+	private int waveNumber;
+	
+	private MobWave currentWave;
 	
 	public MobHandler(PlayState state) {
 		mobList = new ArrayList<Mob>();
-		freq = 2f;
+		sum = WAVE_FREQUENCY;
 		this.state = state;
+		waveNumber = 1;
+		currentWave = new MobWave(waveNumber, this);
+		waveNumber = 2;
+		random = new Random();
 	}
 	
-	public void addMob(int x, int y, Tile tile){
-		mobList.add(new Mob(x, y, MobType.MOB, tile, state.getMap().getDestination(), this));
+	public void addMob(MobType type){
+		int i = random.nextInt(4);
+		
+		if (i == 0) {
+			Tile s3 = state.getMap().getSpawns().get(2);
+			mobList.add(new Mob(810, 810, type, s3, state.getMap().getDestination(), this));
+		}else if (i == 1) {
+			Tile s1 = state.getMap().getSpawns().get(0);
+			mobList.add(new Mob(-10, -10, type, s1, state.getMap().getDestination(), this));
+		}else if (i == 2) {
+			Tile s4 = state.getMap().getSpawns().get(3);
+			mobList.add(new Mob(-10, 810, type, s4, state.getMap().getDestination(), this));
+		}else {
+			Tile s2 = state.getMap().getSpawns().get(1);
+			mobList.add(new Mob(810, -10, type, s2, state.getMap().getDestination(), this));
+		}
+		
+		
 	}
 	
 	public void updatePaths(){
@@ -36,13 +60,14 @@ public class MobHandler {
 	}
 	
 	public void update(float delta){
-		sum += delta;
-		if (sum > freq) {
+		sum -= delta;
+		currentWave.update(delta);
+		if (sum <= 0) {
 			
-			spawnWaveV1();
 			System.out.println(mobList.size());
-			
-			sum = 0;
+			currentWave = new MobWave(waveNumber, this);
+			waveNumber++;
+			sum = WAVE_FREQUENCY;
 		}
 		for (int i = 0; i < mobList.size(); i++) {
 			mobList.get(i).update(delta);
@@ -61,20 +86,19 @@ public class MobHandler {
 	}
 
 	public void remove(Mob mob) {
+		state.getResources().addGold(mob.getType().getPoints());
+		state.getResources().addScore(mob.getType().getPoints());
 		mobList.remove(mob);
 		
 	}
 	
-	private void spawnWaveV1(){
-		Tile s1 = state.getMap().getSpawns().get(0);
-		Tile s2 = state.getMap().getSpawns().get(1);
-		Tile s3 = state.getMap().getSpawns().get(2);
-		Tile s4 = state.getMap().getSpawns().get(3);
-		
-		addMob(800, 800, s3);
-		addMob(-10, -10, s1);
-		addMob(-10, 810, s4);
-		addMob(810, -10, s2);
+	
+	public float getTimeToNextWave(){
+		return sum;
+	}
+	
+	public int getWaveNumber(){
+		return waveNumber;
 	}
 	
 

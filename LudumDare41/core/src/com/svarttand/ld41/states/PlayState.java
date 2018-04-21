@@ -60,6 +60,7 @@ public class PlayState extends State{
 	public void update(float delta) {
 		mobHandler.update(delta);
 		towerHandler.update(delta);
+		ui.updateTimer(mobHandler.getTimeToNextWave());
 	}
 
 	@Override

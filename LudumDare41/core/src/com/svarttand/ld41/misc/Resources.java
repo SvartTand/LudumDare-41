@@ -47,7 +47,12 @@ public class Resources {
 
 
 	public void addPopulation(float f) {
-		this.population += f;
+		if (f <= 0) {
+			this.housing += Math.abs(f);
+		}else{
+			this.population += f;
+		}
+		
 		state.getUI().updateResources();
 	}
 

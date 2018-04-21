@@ -49,6 +49,7 @@ public class PlayUI {
 	private Label UpgradeCost;
 	private LabelStyle labelStyle;
 	private Label score;
+	private Label nextWave;
 	
 	private PlayState state;
 	
@@ -159,16 +160,24 @@ public class PlayUI {
 		score = new Label("Score: " + state.getResources().getScore(), labelStyle);
 		score.setPosition(Application.V_WIDTH * 0.01f, Application.V_HEIGHT*0.97f);
 		
+		nextWave = new Label("Next Wave in: " + 60, labelStyle);
+		nextWave.setPosition((Application.V_WIDTH*0.99f - nextWave.getWidth()), Application.V_HEIGHT*0.97f);
+		
 		stage.addActor(Tower1Cost);
 		stage.addActor(Tower2Cost);
 		stage.addActor(HouseCost);
 		stage.addActor(UpgradeCost);
 		stage.addActor(resources);
 		stage.addActor(score);
+		stage.addActor(nextWave);
+	}
+	public void updateTimer(float time){
+		nextWave.setText("Next Wave in: " +(int) time);
 	}
 	
 	public void updateResources(){
 		resources.setText("Gold: " + state.getResources().getGold() + ", Population: " + state.getResources().getPopulation() + "/" + state.getResources().getHousing());
+		score.setText("Score: " + state.getResources().getScore());
 	}
 	
 	private void resetButtons(Button button){

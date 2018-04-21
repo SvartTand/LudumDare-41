@@ -103,6 +103,11 @@ public class Mob {
 		}
 		
 	}
+
+	public MobType getType() {
+		
+		return type;
+	}
 	
 
 }
