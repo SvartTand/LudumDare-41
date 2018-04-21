@@ -5,64 +5,71 @@ filter: Nearest,Nearest
 repeat: none
 Panel
   rotate: false
-  xy: 1, 133
+  xy: 1, 139
   size: 800, 96
   orig: 800, 96
   offset: 0, 0
   index: -1
 Button
   rotate: false
-  xy: 1, 67
+  xy: 1, 73
   size: 96, 64
   orig: 96, 64
   offset: 0, 0
   index: -1
 ButtonChecked
   rotate: false
-  xy: 803, 165
+  xy: 803, 171
   size: 96, 64
   orig: 96, 64
   offset: 0, 0
   index: -1
 ButtonPressed
   rotate: false
-  xy: 1, 1
+  xy: 1, 7
   size: 96, 64
   orig: 96, 64
   offset: 0, 0
   index: -1
 Tile
   rotate: false
-  xy: 99, 99
+  xy: 99, 105
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower
   rotate: false
-  xy: 901, 197
+  xy: 901, 203
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower1
   rotate: false
-  xy: 99, 65
+  xy: 99, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower2
   rotate: false
-  xy: 133, 99
+  xy: 133, 105
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Mob
   rotate: false
-  xy: 803, 147
+  xy: 803, 153
   size: 16, 16
   orig: 16, 16
+  offset: 0, 0
+  index: -1
+projectile
+  rotate: false
+  xy: 1, 1
+  size: 4, 4
+  orig: 4, 4
   offset: 0, 0
   index: -1

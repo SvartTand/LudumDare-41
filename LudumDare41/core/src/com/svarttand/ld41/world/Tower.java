@@ -30,17 +30,25 @@ public class Tower {
 	
 	public void update(float delta, ArrayList<Mob> mobs, TowerHandler handler){
 		time += delta;
-		if (target.getBounds().overlaps(bounds)) {
-			if (time >= type.getFreq()) {
-				handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC));
-			}
-		}
+		
 		if (target == null) {
 			for (int i = 0; i < mobs.size(); i++) {
 				if (mobs.get(i).getBounds().overlaps(bounds)) {
 					target = mobs.get(i);
 					break;
 				}
+			}
+		}else{
+			if(mobs.contains(target)){
+				if (target.getBounds().overlaps(bounds)) {
+					if (time >= type.getFreq()) {
+						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC, target, type.getDmg()));
+						time = 0;
+					}
+				}
+			}
+			else{
+				target = null;
 			}
 		}
 		

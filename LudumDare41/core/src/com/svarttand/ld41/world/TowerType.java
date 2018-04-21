@@ -2,8 +2,8 @@ package com.svarttand.ld41.world;
 
 public enum TowerType {
 	
-	BASIC("Tower1", 50, 50, 10,1), 
-	BASIC2("Tower2", 50,50,10,1.5f);
+	BASIC("Tower1", 100, 100, 10,1), 
+	BASIC2("Tower2", 50,50,10,0.5f);
 	
 	private int range;
 	private String path;
@@ -11,11 +11,11 @@ public enum TowerType {
 	private float frequency;
 	private int cost;
 	
-	private TowerType(String path, int speed, float hp, int points, float freq) {
-		this.range = speed;
+	private TowerType(String path, int range, float dmg, int cost, float freq) {
+		this.range = range;
 		this.path = path;
-		this.dmg = hp;
-		this.cost = points;
+		this.dmg = dmg;
+		this.cost = cost;
 		frequency = freq;
 	}
 

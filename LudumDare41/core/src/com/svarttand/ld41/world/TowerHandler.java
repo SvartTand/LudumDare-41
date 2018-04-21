@@ -30,7 +30,7 @@ public class TowerHandler {
 		}
 		
 		for (int i = 0; i < projectiles.size(); i++) {
-			projectiles.get(i).update(delta);
+			projectiles.get(i).update(delta, this);
 		}
 	}
 	
@@ -38,10 +38,18 @@ public class TowerHandler {
 		for (int i = 0; i < towers.size(); i++) {
 			batch.draw(atlas.findRegion(towers.get(i).getPath()), towers.get(i).getPosX(), towers.get(i).getPosY());
 		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			batch.draw(atlas.findRegion(projectiles.get(i).getPath()), projectiles.get(i).getPosX(), projectiles.get(i).getPosY());
+		}
 	}
 
 	public void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
+		
+	}
+
+	public void removeProjectile(Projectile projectile) {
+		projectiles.remove(projectile);
 		
 	}
 

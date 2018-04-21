@@ -18,12 +18,12 @@ public class MobHandler {
 	
 	public MobHandler(PlayState state) {
 		mobList = new ArrayList<Mob>();
-		freq = 10f;
+		freq = 2f;
 		this.state = state;
 	}
 	
 	public void addMob(int x, int y, Tile tile){
-		mobList.add(new Mob(x, y, MobType.MOB, tile, state.getMap().getDestination()));
+		mobList.add(new Mob(x, y, MobType.MOB, tile, state.getMap().getDestination(), this));
 	}
 	
 	public void updatePaths(){
@@ -55,6 +55,11 @@ public class MobHandler {
 	public ArrayList<Mob> getList() {
 		// TODO Auto-generated method stub
 		return mobList;
+	}
+
+	public void remove(Mob mob) {
+		mobList.remove(mob);
+		
 	}
 	
 

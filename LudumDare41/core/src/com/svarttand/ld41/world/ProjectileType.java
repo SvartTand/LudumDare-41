@@ -2,7 +2,7 @@ package com.svarttand.ld41.world;
 
 public enum ProjectileType {
 	
-	BASIC("bullet", 80);
+	BASIC("projectile", 80);
 	
 	private String path;
 	private int speed;
