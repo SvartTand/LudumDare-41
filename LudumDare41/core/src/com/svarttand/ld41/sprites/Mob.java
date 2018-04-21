@@ -3,6 +3,7 @@ package com.svarttand.ld41.sprites;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.math.Circle;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.world.Tile;
 import com.svarttand.ld41.world.TileMap;
@@ -20,6 +21,8 @@ public class Mob {
 	private boolean needToUpdate;
 	private Tile currentTile;
 	
+	private Circle bounds;
+	
 	public Mob(int x, int y, MobType mobType, Tile start, Tile dest) {
 		posX = x;
 		posY = y;
@@ -28,7 +31,7 @@ public class Mob {
 		currentTile = start;
 		getRoute(currentTile, dest);
 		needToUpdate = false;
-		
+		bounds = new Circle(posX, posY, type.getRadius());
 	}
 	
 	private void getRoute(Tile start, Tile dest) {
@@ -42,7 +45,7 @@ public class Mob {
 		float angle;
 		if (!route.isEmpty()) {
 			if (needToUpdate) {
-				LinkedList<Tile> l = PathFinding.calculateRoute(currentTile, route.getLast());
+				LinkedList<Tile> l = PathFinding.calculateRoute(currentTile, route.getFirst());
 				route = l;
 				needToUpdate = false;
 			}
@@ -50,9 +53,12 @@ public class Mob {
 			posX += (float) Math.cos(angle) * type.getSpeed() * delta;
 			posY += (float) Math.sin(angle) * type.getSpeed() * delta;
 			
-			if (posX >= route.getLast().getPosX() && posX <= route.getLast().getPosX()+ TileMap.TILE_SIZE && posY >= route.getLast().getPosY() && posY <= route.getLast().getPosY()+ TileMap.TILE_SIZE) {
+			//System.out.println(posX + ", " + posY);
+			if (posX >= route.getLast().getPosX()-10 && posX <= route.getLast().getPosX()+ TileMap.TILE_SIZE && posY >= route.getLast().getPosY()-10 && posY <= route.getLast().getPosY()+ TileMap.TILE_SIZE) {
 				route.removeLast();
-				
+				if (!route.isEmpty()) {
+					currentTile = route.getLast();
+				}
 			}
 		}
 		
@@ -80,6 +86,9 @@ public class Mob {
 		return needToUpdate;
 	}
 	
+	public Circle getBounds(){
+		return bounds;
+	}
 	
 
 }

@@ -18,7 +18,7 @@ public class MobHandler {
 	
 	public MobHandler(PlayState state) {
 		mobList = new ArrayList<Mob>();
-		freq = 2f;
+		freq = 10f;
 		this.state = state;
 	}
 	
@@ -50,6 +50,11 @@ public class MobHandler {
 		for (int i = 0; i < mobList.size(); i++) {
 			batch.draw(atlas.findRegion(mobList.get(i).getPath()), mobList.get(i).getPosX(), mobList.get(i).getPosY());
 		}
+	}
+
+	public ArrayList<Mob> getList() {
+		// TODO Auto-generated method stub
+		return mobList;
 	}
 	
 

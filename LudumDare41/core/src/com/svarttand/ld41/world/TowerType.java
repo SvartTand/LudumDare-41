@@ -2,19 +2,21 @@ package com.svarttand.ld41.world;
 
 public enum TowerType {
 	
-	BASIC("Tower1", 50, 50, 10), 
-	BASIC2("Tower2", 50,50,10);
+	BASIC("Tower1", 50, 50, 10,1), 
+	BASIC2("Tower2", 50,50,10,1.5f);
 	
 	private int range;
 	private String path;
 	private float dmg;
+	private float frequency;
 	private int cost;
 	
-	private TowerType(String path, int speed, float hp, int points) {
+	private TowerType(String path, int speed, float hp, int points, float freq) {
 		this.range = speed;
 		this.path = path;
 		this.dmg = hp;
 		this.cost = points;
+		frequency = freq;
 	}
 
 	public int getRange() {
@@ -31,6 +33,10 @@ public enum TowerType {
 
 	public int getCost() {
 		return cost;
+	}
+	
+	public float getFreq(){
+		return frequency;
 	}
 	
 

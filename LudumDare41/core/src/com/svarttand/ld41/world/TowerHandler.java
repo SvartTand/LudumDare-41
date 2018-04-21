@@ -11,9 +11,12 @@ public class TowerHandler {
 	private ArrayList<Tower> towers;
 	private PlayState playState;
 	
+	private ArrayList<Projectile> projectiles;
+	
 	public TowerHandler(PlayState playState) {
 		towers = new ArrayList<Tower>();
 		this.playState = playState;
+		projectiles = new ArrayList<Projectile>();
 	}
 	
 	public void addTower(Tower tower){
@@ -23,7 +26,11 @@ public class TowerHandler {
 	
 	public void update(float delta){
 		for (int i = 0; i < towers.size(); i++) {
-			towers.get(i).update(delta);
+			towers.get(i).update(delta, playState.getMobs().getList(), this);
+		}
+		
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).update(delta);
 		}
 	}
 	
@@ -31,6 +38,11 @@ public class TowerHandler {
 		for (int i = 0; i < towers.size(); i++) {
 			batch.draw(atlas.findRegion(towers.get(i).getPath()), towers.get(i).getPosX(), towers.get(i).getPosY());
 		}
+	}
+
+	public void addProjectile(Projectile projectile) {
+		projectiles.add(projectile);
+		
 	}
 
 }

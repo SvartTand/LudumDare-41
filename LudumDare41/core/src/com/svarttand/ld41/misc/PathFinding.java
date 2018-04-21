@@ -18,7 +18,7 @@ public class PathFinding {
 		System.out.println(openSet.size());
 		while(openSet.size() > 0){
 			Tile current = getWinner(openSet, dest);
-			System.out.println(openSet.size());
+			//System.out.println(openSet.size());
 			if (current.isSame(dest)) {
 				while(current != null){
 					movmentPath.add(current);
@@ -51,7 +51,7 @@ public class PathFinding {
 						}
 					}
 				}else{
-					System.out.println("A TOWER");
+					//System.out.println("A TOWER");
 					closedSet.add(current.getNeighbours().get(i));
 				}
 				
@@ -59,7 +59,7 @@ public class PathFinding {
 		}
 		//movmentPath.removeLast();
 		for (int i = 0; i < movmentPath.size(); i++) {
-			movmentPath.get(i).setPath("Tower");
+			//movmentPath.get(i).setPath("Tower");
 		}
 		System.out.println("done");
 		for (int i = 0; i < closedSet.size(); i++) {
@@ -101,6 +101,79 @@ public class PathFinding {
 		float distance = (float) Math.sqrt(Math.pow(x, 2)+ Math.pow(y, 2));
 		return distance;
 		
+	}
+	
+	public static boolean isRoutePossible(Tile start, Tile dest, Tile tile){
+		LinkedList<Tile> movmentPath = new LinkedList<Tile>();
+		
+		ArrayList<Tile> closedSet = new ArrayList<Tile>();
+		ArrayList<Tile> openSet = new ArrayList<Tile>();
+		
+		openSet.add(start);
+		start.setParent(null);
+		closedSet.add(tile);
+		while(openSet.size() > 0){
+			Tile current = getWinner(openSet, dest);
+			//System.out.println(openSet.size());
+			if (openSet.size() >= 500) {
+				
+				System.out.println(false);
+				return false;
+			}
+			if (current.isSame(dest)) {
+				while(current != null){
+					movmentPath.add(current);
+					current = current.getParent();
+				}
+				break;
+			}
+			openSet.remove(current);
+			closedSet.add(current);
+			
+			for (int i = 0; i < current.getNeighbours().size(); i++) {
+				if (current.getNeighbours().get(i).isPassable()) {
+					boolean alreadyCounted = false;
+					for (int j = 0; j < closedSet.size(); j++) {
+						if (closedSet.get(j).isSame(current.getNeighbours().get(i))) {
+							alreadyCounted = true;
+							break;
+						}
+					}
+					if (!alreadyCounted) {
+						for (int j = 0; j < closedSet.size(); j++) {
+							if (closedSet.get(j).isSame(current.getNeighbours().get(i))) {
+								alreadyCounted = true;
+								break;
+							}
+						}
+						if (!alreadyCounted) {
+							openSet.add(current.getNeighbours().get(i));
+							current.getNeighbours().get(i).setParent(current);
+						}
+					}
+				}else{
+					//System.out.println("A TOWER");
+					closedSet.add(current.getNeighbours().get(i));
+				}
+				
+			}
+		}
+		//movmentPath.removeLast();
+		for (int i = 0; i < movmentPath.size(); i++) {
+			//movmentPath.get(i).setPath("Tower");
+		}
+		System.out.println("done");
+		for (int i = 0; i < closedSet.size(); i++) {
+			closedSet.get(i).setParent(null);
+		}
+		for (int i = 0; i < openSet.size(); i++) {
+			openSet.get(i).setParent(null);
+		}
+		for (int i = 0; i < movmentPath.size(); i++) {
+			movmentPath.get(i).setParent(null);
+		}
+		System.out.println(true);
+		return true;
 	}
 
 

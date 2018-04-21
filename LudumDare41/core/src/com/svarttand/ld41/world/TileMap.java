@@ -1,5 +1,7 @@
 package com.svarttand.ld41.world;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -9,11 +11,17 @@ public class TileMap {
 	
 	private Tile[][] map;
 	private Tile destination;
+	private ArrayList<Tile> spawns;
 	
 	public TileMap(){
 		map = new Tile[SIZE][SIZE];
 		generateMap();
 		destination = map[14][14];
+		spawns = new ArrayList<Tile>();
+		spawns.add(map[0][0]);
+		spawns.add(map[24][0]);
+		spawns.add(map[24][24]);
+		spawns.add(map[0][24]);
 	}
 
 	private void generateMap() {
@@ -53,6 +61,10 @@ public class TileMap {
 	public Tile getDestination(){
 		return destination;
 		
+	}
+	
+	public ArrayList<Tile> getSpawns(){
+		return spawns;
 	}
 	
 
