@@ -35,7 +35,7 @@ public class MenuState extends State {
 	@Override
 	public void update(float delta) {
 		System.out.println("Main");
-		gsm.push(new PlayState(gsm));
+		gsm.push(new PlayState(gsm, textureAtlas));
 
 	}
 
@@ -51,7 +51,7 @@ public class MenuState extends State {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		textureAtlas.dispose();
 
 	}
 
