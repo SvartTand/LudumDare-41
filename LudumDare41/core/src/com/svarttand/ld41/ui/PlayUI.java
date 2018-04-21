@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -53,6 +54,8 @@ public class PlayUI {
 	
 	private PlayState state;
 	
+	ArrayList<FloatingText> floatingTexts;
+	
 	
 	public PlayUI(TextureAtlas atlas, final PlayState state){
 		camera = new OrthographicCamera();
@@ -60,6 +63,7 @@ public class PlayUI {
 		stage = new Stage(viewport);
 		this.state = state;
 		buttonList = new ArrayList<Button>();
+		floatingTexts = new ArrayList<FloatingText>();
 		
 		currentState = State.NONE;
 		font = new BitmapFont();
@@ -180,12 +184,32 @@ public class PlayUI {
 		score.setText("Score: " + state.getResources().getScore());
 	}
 	
+	public void updateFloatinTexts(float delta){
+		for (int i = 0; i < floatingTexts.size(); i++) {
+			if (floatingTexts.get(i).update(delta)) {
+				floatingTexts.get(i).getLabel().setText("");
+				floatingTexts.remove(i);
+				
+			}
+		}
+	}
+	
+	public void addNewFloatingText(String text,float x, float y, float duration, boolean gravity){
+		floatingTexts.add(new FloatingText(text, x, y, duration, labelStyle, gravity));
+	}
+	
 	private void resetButtons(Button button){
 		for (int i = 0; i < buttonList.size(); i++) {
 			if (buttonList.get(i) != button) {
 				buttonList.get(i).setChecked(false);
 			}
 			
+		}
+	}
+	
+	public void render(SpriteBatch batch){
+		for (int i = 0; i < floatingTexts.size(); i++) {
+			floatingTexts.get(i).getLabel().draw(batch, 1);
 		}
 	}
 	
@@ -201,6 +225,7 @@ public class PlayUI {
 	
 	public void dispose(){
 		stage.dispose();
+		font.dispose();
 	}
 
 	public Stage getStage() {

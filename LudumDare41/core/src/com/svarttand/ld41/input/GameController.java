@@ -2,6 +2,7 @@ package com.svarttand.ld41.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.svarttand.ld41.Application;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.ui.PlayUI.State;
@@ -58,7 +59,7 @@ public class GameController implements InputProcessor{
 				//System.out.println("works");
 				Tower tower = null;
 				if (playState.getUI().currentState == State.TOWER1) {
-					if (enoughResources(TowerType.BASIC)) {
+					if (enoughResources(TowerType.BASIC,tile)) {
 						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC);
 						tile.setTower(tower);
 						playState.getTowers().addTower(tower);
@@ -67,14 +68,14 @@ public class GameController implements InputProcessor{
 					
 					
 				}else if(playState.getUI().currentState == State.TOWER2){
-					if (enoughResources(TowerType.BASIC2)) {
+					if (enoughResources(TowerType.BASIC2,tile)) {
 						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2);
 						tile.setTower(tower);
 						playState.getTowers().addTower(tower);
 						playState.getMobs().updatePaths();
 					}
 				}else{
-					if (enoughResources(TowerType.HOUSE)) {
+					if (enoughResources(TowerType.HOUSE, tile)) {
 						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE);
 						tile.setTower(tower);
 						playState.getTowers().addHouse(tower);
@@ -85,7 +86,7 @@ public class GameController implements InputProcessor{
 				
 			}
 		}else{
-			System.out.println("Already Tower there!");
+			playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true);
 		}
 		
 		
@@ -93,17 +94,17 @@ public class GameController implements InputProcessor{
 		
 	}
 
-	private boolean enoughResources(TowerType type) {
+	private boolean enoughResources(TowerType type, Tile tile) {
 		if (playState.getResources().getGold() >= type.getCost()) {
 			if (playState.getResources().getPopSpace() >= type.getHousing()) {
 				playState.getResources().buyWithGold(type.getCost());
 				playState.getResources().addPopulation(type.getHousing());
 				return true;
 			}
-			System.out.println("Not Enough Housing");
+			playState.getUI().addNewFloatingText("Not Enough Housing", tile.getPosX(), tile.getPosY(), 1.5f, true);
 			return false;
 		}
-		System.out.println("not Enough Gold");
+		playState.getUI().addNewFloatingText("Not Enough Gold", tile.getPosX(), tile.getPosY(), 1.5f, true);
 		return false;
 	}
 

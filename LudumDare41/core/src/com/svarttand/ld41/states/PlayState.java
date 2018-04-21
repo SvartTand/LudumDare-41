@@ -69,6 +69,7 @@ public class PlayState extends State{
 		mobHandler.update(delta);
 		towerHandler.update(delta);
 		ui.updateTimer(mobHandler.getTimeToNextWave());
+		ui.updateFloatinTexts(delta);
 	}
 
 	@Override
@@ -82,6 +83,7 @@ public class PlayState extends State{
 		mobHandler.render(batch, textureAtlas);
 		batch.draw(textureAtlas.findRegion("Panel"), 0, 0);
 		particleHandler.render(batch, delta);
+		ui.render(batch);
 		batch.end();
 		ui.getStage().draw();
 		
