@@ -35,8 +35,8 @@ public class GameStateManager {
         states.peek().update(dt);
     }
 
-    public void render(SpriteBatch sb){
-        states.peek().render(sb);
+    public void render(SpriteBatch sb, float delta){
+        states.peek().render(sb, delta);
     }
 
     public void dispose(){

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.Tile;
 
@@ -86,6 +87,7 @@ public class MobHandler {
 	}
 
 	public void remove(Mob mob) {
+		
 		state.getResources().addGold(mob.getType().getPoints());
 		state.getResources().addScore(mob.getType().getPoints());
 		mobList.remove(mob);

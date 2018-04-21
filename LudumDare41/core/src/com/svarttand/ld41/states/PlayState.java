@@ -3,12 +3,14 @@ package com.svarttand.ld41.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
+import com.svarttand.ld41.misc.ParticleHandler;
 import com.svarttand.ld41.misc.Resources;
 import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.ui.PlayUI;
@@ -23,10 +25,14 @@ public class PlayState extends State{
 	private GameController controller;
 	private InputMultiplexer multiplexer;
 	
+	private ParticleHandler particleHandler;
+	
 	private MobHandler mobHandler;
 	private TowerHandler towerHandler;
 
 	private Resources resources;
+	
+	private ParticleEffect effect;
 	
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
@@ -38,6 +44,7 @@ public class PlayState extends State{
 		resources = new Resources(this);
 		ui = new PlayUI(textureAtlas, this);
 		
+		particleHandler = new ParticleHandler(atlas);
 		
 		mobHandler = new MobHandler(this);
 		towerHandler = new TowerHandler(this);
@@ -47,6 +54,7 @@ public class PlayState extends State{
 
 		multiplexer.addProcessor(ui.getStage());
 		Gdx.input.setInputProcessor(multiplexer);
+		
 		
 	}
 
@@ -64,7 +72,7 @@ public class PlayState extends State{
 	}
 
 	@Override
-	public void render(SpriteBatch batch) {
+	public void render(SpriteBatch batch, float delta) {
 		batch.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -73,6 +81,7 @@ public class PlayState extends State{
 		towerHandler.render(batch, textureAtlas);
 		mobHandler.render(batch, textureAtlas);
 		batch.draw(textureAtlas.findRegion("Panel"), 0, 0);
+		particleHandler.render(batch, delta);
 		batch.end();
 		ui.getStage().draw();
 		
@@ -107,6 +116,10 @@ public class PlayState extends State{
 	
 	public Resources getResources(){
 		return resources;
+	}
+	
+	public ParticleHandler getParticleHandler(){
+		return particleHandler;
 	}
 
 }

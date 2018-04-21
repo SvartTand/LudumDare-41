@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.states.PlayState;
 
 public class TowerHandler {
@@ -54,6 +55,7 @@ public class TowerHandler {
 	}
 
 	public void removeProjectile(Projectile projectile) {
+		playState.getParticleHandler().addParticleEffect(ParticleType.SPLASH, projectile.getPosX(), projectile.getPosY());
 		projectiles.remove(projectile);
 		
 	}

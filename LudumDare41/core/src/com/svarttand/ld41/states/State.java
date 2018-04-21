@@ -21,7 +21,7 @@ public abstract class State {
 
 	    protected abstract void handleInput(float delta);
 	    public abstract void update(float delta);
-	    public abstract void render(SpriteBatch batch);
+	    public abstract void render(SpriteBatch batch, float delta);
 	    public abstract void dispose();
 	    public abstract void resize(int width, int height);
 

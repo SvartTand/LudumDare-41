@@ -29,7 +29,7 @@ public class Application extends ApplicationAdapter {
 	public void render () {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		
-		gsm.render(batch);
+		gsm.render(batch,Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
