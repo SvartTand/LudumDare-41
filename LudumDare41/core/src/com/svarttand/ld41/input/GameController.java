@@ -3,6 +3,10 @@ package com.svarttand.ld41.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.svarttand.ld41.states.PlayState;
+import com.svarttand.ld41.ui.PlayUI.State;
+import com.svarttand.ld41.world.Tile;
+import com.svarttand.ld41.world.Tower;
+import com.svarttand.ld41.world.TowerType;
 
 public class GameController implements InputProcessor{
 	private PlayState playState;
@@ -32,11 +36,34 @@ public class GameController implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (screenY < Gdx.graphics.getHeight() * 0.883f) {
-			playState.getMap().convert(screenX, screenY);
-			System.out.println("works");
+			Tile tile = playState.getMap().getTileConvert(screenX, screenY);
+			System.out.println(playState.getUI().currentState);
+			if (playState.getUI().currentState != State.NONE) {
+				buildTower(tile);
+				tile.setPath("Tower");
+			}
+			
 		}		
 		
 		return false;
+	}
+	
+	
+
+	private void buildTower(Tile tile) {
+		System.out.println("works");
+		Tower tower = null;
+		if (playState.getUI().currentState == State.BUILD) {
+			tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC);
+			
+		}else{
+			tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2);
+		}
+		tile.setTower(tower);
+		playState.getTowers().addTower(tower);
+		playState.getMobs().updatePaths();
+		
+		
 	}
 
 	@Override

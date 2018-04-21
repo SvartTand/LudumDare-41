@@ -12,6 +12,7 @@ import com.svarttand.ld41.input.GameController;
 import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.ui.PlayUI;
 import com.svarttand.ld41.world.TileMap;
+import com.svarttand.ld41.world.TowerHandler;
 
 public class PlayState extends State{
 	
@@ -22,6 +23,7 @@ public class PlayState extends State{
 	private InputMultiplexer multiplexer;
 	
 	private MobHandler mobHandler;
+	private TowerHandler towerHandler;
 
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
@@ -33,6 +35,7 @@ public class PlayState extends State{
 		ui = new PlayUI(textureAtlas, this);
 		
 		mobHandler = new MobHandler(this);
+		towerHandler = new TowerHandler(this);
 		controller = new GameController(this);
 		multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(controller);
@@ -51,6 +54,7 @@ public class PlayState extends State{
 	@Override
 	public void update(float delta) {
 		mobHandler.update(delta);
+		towerHandler.update(delta);
 	}
 
 	@Override
@@ -60,6 +64,7 @@ public class PlayState extends State{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		map.render(batch, textureAtlas);
+		towerHandler.render(batch, textureAtlas);
 		mobHandler.render(batch, textureAtlas);
 		batch.draw(textureAtlas.findRegion("Panel"), 0, 0);
 		batch.end();
@@ -84,6 +89,14 @@ public class PlayState extends State{
 	
 	public PlayUI getUI(){
 		return ui;
+	}
+	
+	public TowerHandler getTowers(){
+		return towerHandler;
+	}
+
+	public MobHandler getMobs() {
+		return mobHandler;
 	}
 
 }

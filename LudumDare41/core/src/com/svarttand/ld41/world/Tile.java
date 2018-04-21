@@ -7,6 +7,8 @@ public class Tile {
 	private float posX;
 	private float posY;
 	
+	private Tower tower;
+	
 	private String path;
 	
 	private ArrayList<Tile> neighbours;
@@ -22,6 +24,7 @@ public class Tile {
 		neighbours = new ArrayList<Tile>();
 		path = "Tile";
 		passable = true;
+		tower = null;
 	}
 	
 	public void addNeighbour(Tile neighbour){
@@ -49,7 +52,11 @@ public class Tile {
 	}
 	
 	public boolean isPassable(){
-		return passable;
+		if (tower == null) {
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public Tile getParent() {
@@ -71,6 +78,14 @@ public class Tile {
 	public void setPassable(boolean b) {
 		passable = false;
 		
+	}
+	
+	public Tower getTower(){
+		return tower;
+	}
+	
+	public void setTower(Tower tower){
+		this.tower = tower;
 	}
 	
 }

@@ -14,13 +14,11 @@ public class PathFinding {
 		ArrayList<Tile> openSet = new ArrayList<Tile>();
 		
 		openSet.add(start);
-		//start.setParent(null);
-		
+		start.setParent(null);
+		System.out.println(openSet.size());
 		while(openSet.size() > 0){
-			System.out.println(dest);
-			System.out.println(openSet.size() + ", " + dest.getPosX() + ", " + dest.getPosY());
 			Tile current = getWinner(openSet, dest);
-			
+			System.out.println(openSet.size());
 			if (current.isSame(dest)) {
 				while(current != null){
 					movmentPath.add(current);
@@ -53,7 +51,7 @@ public class PathFinding {
 						}
 					}
 				}else{
-					System.out.println("yo");
+					System.out.println("A TOWER");
 					closedSet.add(current.getNeighbours().get(i));
 				}
 				
@@ -64,6 +62,15 @@ public class PathFinding {
 			movmentPath.get(i).setPath("Tower");
 		}
 		System.out.println("done");
+		for (int i = 0; i < closedSet.size(); i++) {
+			closedSet.get(i).setParent(null);
+		}
+		for (int i = 0; i < openSet.size(); i++) {
+			openSet.get(i).setParent(null);
+		}
+		for (int i = 0; i < movmentPath.size(); i++) {
+			movmentPath.get(i).setParent(null);
+		}
 		return movmentPath;
 	}
 	

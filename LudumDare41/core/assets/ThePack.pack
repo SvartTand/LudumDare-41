@@ -45,6 +45,20 @@ Tower
   orig: 32, 32
   offset: 0, 0
   index: -1
+Tower1
+  rotate: false
+  xy: 99, 65
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Tower2
+  rotate: false
+  xy: 133, 99
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 Mob
   rotate: false
   xy: 803, 147

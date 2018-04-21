@@ -41,10 +41,9 @@ public class TileMap {
 		}
 	}
 
-	public void convert(int screenX, int screenY) {
-		Tile tile = map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)];
-		tile.setPath("Tower");
-		tile.setPassable(false);
+	public Tile getTileConvert(int screenX, int screenY) {
+		return map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)];
+		
 	}
 	
 	public Tile getTile(int x, int y){

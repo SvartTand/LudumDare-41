@@ -77,7 +77,7 @@ public class PlayUI {
 	}
 	
 	private void noChecked(){
-		if (!buildButton.isChecked() || !buildButton2.isChecked()) {
+		if (!buildButton.isChecked() && !buildButton2.isChecked()) {
 			currentState = State.NONE;
 		}
 		

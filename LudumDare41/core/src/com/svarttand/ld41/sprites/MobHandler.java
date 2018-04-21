@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.Tile;
-import com.svarttand.ld41.world.TileMap;
 
 public class MobHandler {
 	public static final int DEST_X = 17;
@@ -21,17 +20,24 @@ public class MobHandler {
 		mobList = new ArrayList<Mob>();
 		freq = 2f;
 		this.state = state;
-		addMob(600, 600, state.getMap().getTile(24, 24));
 	}
 	
 	public void addMob(int x, int y, Tile tile){
 		mobList.add(new Mob(x, y, MobType.MOB, tile, state.getMap().getDestination()));
 	}
 	
+	public void updatePaths(){
+		for (int i = 0; i < mobList.size(); i++) {
+			mobList.get(i).updatePath();
+			System.out.println(mobList.get(i).isUpdating());
+		}
+		
+	}
+	
 	public void update(float delta){
 		sum += delta;
 		if (sum > freq) {
-			addMob(800, 800, state.getMap().getDestination());
+			addMob(800, 800, state.getMap().getTile(24, 24));
 			
 			sum = 0;
 		}
