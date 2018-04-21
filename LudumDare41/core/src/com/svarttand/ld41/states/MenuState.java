@@ -1,12 +1,29 @@
 package com.svarttand.ld41.states;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.svarttand.ld41.Application;
 
 public class MenuState extends State {
+	
+	private Viewport viewport;
+	private TextureAtlas textureAtlas;
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
-		// TODO Auto-generated constructor stub
+		textureAtlas = gsm.assetManager.get("ThePack.pack", TextureAtlas.class);
+		viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
+        cam.position.set(Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.5f,0);
+        cam.update();
+        viewport.apply();
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        
+        
+       
 	}
 
 	@Override
@@ -17,13 +34,18 @@ public class MenuState extends State {
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+		System.out.println("Main");
+		gsm.push(new PlayState(gsm));
 
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
-		// TODO Auto-generated method stub
+		batch.setProjectionMatrix(cam.combined);
+		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.end();
 
 	}
 
@@ -35,7 +57,7 @@ public class MenuState extends State {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		viewport.update(width, height);
 
 	}
 
