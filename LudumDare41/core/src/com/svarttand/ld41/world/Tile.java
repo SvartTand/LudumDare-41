@@ -67,5 +67,10 @@ public class Tile {
 		}
 		return false;
 	}
+
+	public void setPassable(boolean b) {
+		passable = false;
+		
+	}
 	
 }

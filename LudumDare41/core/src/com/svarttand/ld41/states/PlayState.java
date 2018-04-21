@@ -29,7 +29,7 @@ public class PlayState extends State{
 		map = new TileMap();
 		textureAtlas = atlas;
 		
-		mobHandler = new MobHandler(map, map.getTile(15, 15));
+		mobHandler = new MobHandler(this);
 		controller = new GameController(this);
 		multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(controller);

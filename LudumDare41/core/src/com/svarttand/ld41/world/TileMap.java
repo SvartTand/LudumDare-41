@@ -1,20 +1,19 @@
 package com.svarttand.ld41.world;
 
-import javax.annotation.Generated;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class TileMap {
-	private static final int SIZE = 25;
-	private static final int TILE_SIZE = 32;
+	public static final int SIZE = 25;
+	public static final int TILE_SIZE = 32;
 	
 	private Tile[][] map;
+	private Tile destination;
 	
 	public TileMap(){
 		map = new Tile[SIZE][SIZE];
-		
 		generateMap();
+		destination = map[14][14];
 	}
 
 	private void generateMap() {
@@ -43,12 +42,18 @@ public class TileMap {
 	}
 
 	public void convert(int screenX, int screenY) {
-		map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)].setPath("Tower");
-		
+		Tile tile = map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)];
+		tile.setPath("Tower");
+		tile.setPassable(false);
 	}
 	
 	public Tile getTile(int x, int y){
 		return map[x][y];
+	}
+	
+	public Tile getDestination(){
+		return destination;
+		
 	}
 	
 
