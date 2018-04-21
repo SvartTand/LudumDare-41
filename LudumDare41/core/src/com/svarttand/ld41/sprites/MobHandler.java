@@ -37,7 +37,9 @@ public class MobHandler {
 	public void update(float delta){
 		sum += delta;
 		if (sum > freq) {
-			addMob(800, 800, state.getMap().getTile(24, 24));
+			
+			spawnWaveV1();
+			//addMob(800, 800, state.getMap().getTile(24, 24));
 			
 			sum = 0;
 		}
@@ -60,6 +62,18 @@ public class MobHandler {
 	public void remove(Mob mob) {
 		mobList.remove(mob);
 		
+	}
+	
+	private void spawnWaveV1(){
+		Tile s1 = state.getMap().getSpawns().get(0);
+		Tile s2 = state.getMap().getSpawns().get(1);
+		Tile s3 = state.getMap().getSpawns().get(2);
+		Tile s4 = state.getMap().getSpawns().get(3);
+		
+		addMob(800, 800, s3);
+		addMob(-10, -10, s1);
+		addMob(-10, 810, s4);
+		addMob(810, -10, s2);
 	}
 	
 

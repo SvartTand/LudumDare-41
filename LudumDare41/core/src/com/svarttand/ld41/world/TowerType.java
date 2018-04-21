@@ -2,8 +2,8 @@ package com.svarttand.ld41.world;
 
 public enum TowerType {
 	
-	BASIC("Tower1", 100, 100, 10,1), 
-	BASIC2("Tower2", 50,50,10,0.5f);
+	BASIC("Tower1", 100, 40, 10,1), 
+	BASIC2("Tower2", 50,20,10,0.5f);
 	
 	private int range;
 	private String path;
