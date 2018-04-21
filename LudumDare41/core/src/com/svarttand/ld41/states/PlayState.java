@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
 import com.svarttand.ld41.sprites.MobHandler;
+import com.svarttand.ld41.ui.PlayUI;
 import com.svarttand.ld41.world.TileMap;
 
 public class PlayState extends State{
@@ -22,18 +23,21 @@ public class PlayState extends State{
 	
 	private MobHandler mobHandler;
 
+	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
 		super(gsm);
 		viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		map = new TileMap();
 		textureAtlas = atlas;
+		ui = new PlayUI(textureAtlas, this);
 		
 		mobHandler = new MobHandler(this);
 		controller = new GameController(this);
 		multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(controller);
-		
+
+		multiplexer.addProcessor(ui.getStage());
 		Gdx.input.setInputProcessor(multiplexer);
 		
 	}
@@ -57,14 +61,15 @@ public class PlayState extends State{
 		batch.begin();
 		map.render(batch, textureAtlas);
 		mobHandler.render(batch, textureAtlas);
+		batch.draw(textureAtlas.findRegion("Panel"), 0, 0);
 		batch.end();
+		ui.getStage().draw();
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		ui.getStage().dispose();
 	}
 
 	@Override
@@ -75,6 +80,10 @@ public class PlayState extends State{
 
 	public TileMap getMap() {
 		return map;
+	}
+	
+	public PlayUI getUI(){
+		return ui;
 	}
 
 }

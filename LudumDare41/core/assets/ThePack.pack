@@ -3,23 +3,51 @@ ThePack.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Panel
+  rotate: false
+  xy: 1, 133
+  size: 800, 96
+  orig: 800, 96
+  offset: 0, 0
+  index: -1
+Button
+  rotate: false
+  xy: 1, 67
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+ButtonChecked
+  rotate: false
+  xy: 803, 165
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+ButtonPressed
+  rotate: false
+  xy: 1, 1
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
 Tile
   rotate: false
-  xy: 1, 19
+  xy: 99, 99
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower
   rotate: false
-  xy: 35, 19
+  xy: 901, 197
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Mob
   rotate: false
-  xy: 1, 1
+  xy: 803, 147
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

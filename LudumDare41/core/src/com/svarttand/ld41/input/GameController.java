@@ -1,5 +1,6 @@
 package com.svarttand.ld41.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.svarttand.ld41.states.PlayState;
 
@@ -30,7 +31,11 @@ public class GameController implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		playState.getMap().convert(screenX, screenY);
+		if (screenY < Gdx.graphics.getHeight() * 0.883f) {
+			playState.getMap().convert(screenX, screenY);
+			System.out.println("works");
+		}		
+		
 		return false;
 	}
 
