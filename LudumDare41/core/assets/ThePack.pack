@@ -31,30 +31,44 @@ ButtonPressed
   orig: 96, 64
   offset: 0, 0
   index: -1
-Tile
+Center
   rotate: false
   xy: 99, 105
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-Tower
+House
   rotate: false
   xy: 901, 203
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-Tower1
+Tile
   rotate: false
   xy: 99, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-Tower2
+Tower
   rotate: false
   xy: 133, 105
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Tower1
+  rotate: false
+  xy: 935, 203
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Tower2
+  rotate: false
+  xy: 99, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

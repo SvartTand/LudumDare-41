@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
+import com.svarttand.ld41.misc.Resources;
 import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.ui.PlayUI;
 import com.svarttand.ld41.world.TileMap;
@@ -25,6 +26,8 @@ public class PlayState extends State{
 	private MobHandler mobHandler;
 	private TowerHandler towerHandler;
 
+	private Resources resources;
+	
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
 		super(gsm);
@@ -33,6 +36,7 @@ public class PlayState extends State{
 		map = new TileMap();
 		textureAtlas = atlas;
 		ui = new PlayUI(textureAtlas, this);
+		resources = new Resources();
 		
 		mobHandler = new MobHandler(this);
 		towerHandler = new TowerHandler(this);
@@ -97,6 +101,10 @@ public class PlayState extends State{
 
 	public MobHandler getMobs() {
 		return mobHandler;
+	}
+	
+	public Resources getResources(){
+		return resources;
 	}
 
 }

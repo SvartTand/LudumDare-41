@@ -16,12 +16,13 @@ public class TileMap {
 	public TileMap(){
 		map = new Tile[SIZE][SIZE];
 		generateMap();
-		destination = map[14][14];
+		destination = map[12][13];
 		spawns = new ArrayList<Tile>();
 		spawns.add(map[0][0]);
 		spawns.add(map[24][0]);
 		spawns.add(map[24][24]);
 		spawns.add(map[0][24]);
+		destination.setPath("Center");
 	}
 
 	private void generateMap() {

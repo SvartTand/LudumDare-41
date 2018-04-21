@@ -45,10 +45,14 @@ public class Tower {
 						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC, target, type.getDmg()));
 						time = 0;
 					}
+				}else{
+					target = null;
+					System.out.println("yo");
 				}
 			}
 			else{
 				target = null;
+				System.out.println("yo");
 			}
 		}
 		
@@ -69,6 +73,10 @@ public class Tower {
 
 	public String getPath() {
 		return type.getPath();
+	}
+	
+	public TowerType getType(){
+		return type;
 	}
 	
 	

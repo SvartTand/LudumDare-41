@@ -30,6 +30,7 @@ public class MobHandler {
 		for (int i = 0; i < mobList.size(); i++) {
 			mobList.get(i).updatePath();
 			System.out.println(mobList.get(i).isUpdating());
+			
 		}
 		
 	}
@@ -39,7 +40,7 @@ public class MobHandler {
 		if (sum > freq) {
 			
 			spawnWaveV1();
-			//addMob(800, 800, state.getMap().getTile(24, 24));
+			System.out.println(mobList.size());
 			
 			sum = 0;
 		}
