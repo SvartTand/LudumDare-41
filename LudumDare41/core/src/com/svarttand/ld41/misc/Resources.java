@@ -1,5 +1,7 @@
 package com.svarttand.ld41.misc;
 
+import com.svarttand.ld41.states.PlayState;
+
 public class Resources {
 	
 	public static final int STARTING_GOLD = 50;
@@ -12,12 +14,14 @@ public class Resources {
 	private float housing;
 	private float population;
 	
-	public Resources() {
+	private PlayState state;
+	
+	public Resources(PlayState state) {
 		gold = STARTING_GOLD;
 		score = STARTING_SCORE;
 		housing = STARTING_HOUSING;
 		population = STARTING_POPULATION;
-		
+		this.state = state;
 		
 	}
 	
@@ -26,21 +30,25 @@ public class Resources {
 
 	public void addGold(int gold) {
 		this.gold += gold;
+		state.getUI().updateResources();
 	}
 
 
 	public void addScore(int score) {
 		this.score += score;
+		state.getUI().updateResources();
 	}
 
 
 	public void addHousing(int housing) {
 		this.housing += housing;
+		state.getUI().updateResources();
 	}
 
 
 	public void addPopulation(float f) {
 		this.population += f;
+		state.getUI().updateResources();
 	}
 
 
@@ -72,6 +80,7 @@ public class Resources {
 
 	public void buyWithGold(float cost) {
 		gold -= cost;
+		state.getUI().updateResources();
 		
 	}
 	

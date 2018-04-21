@@ -18,6 +18,8 @@ public class Tower {
 	
 	private float time;
 	
+	private int level;
+	
 	public Tower(Tile tile, float f, float g, TowerType type) {
 		posX = f;
 		posY = g;
@@ -26,6 +28,7 @@ public class Tower {
 		bounds = new Circle(posX + OFFSET, posY + OFFSET, type.getRange());
 		target = null;
 		time = 0;
+		level = 1;
 	}
 	
 	public void update(float delta, ArrayList<Mob> mobs, TowerHandler handler){
@@ -77,6 +80,11 @@ public class Tower {
 	
 	public TowerType getType(){
 		return type;
+	}
+
+	public float getHousing() {
+		
+		return type.getHousing();
 	}
 	
 	

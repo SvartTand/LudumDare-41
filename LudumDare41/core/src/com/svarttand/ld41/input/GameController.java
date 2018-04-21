@@ -57,7 +57,7 @@ public class GameController implements InputProcessor{
 			if (!doesBlock(tile)) {
 				//System.out.println("works");
 				Tower tower = null;
-				if (playState.getUI().currentState == State.BUILD) {
+				if (playState.getUI().currentState == State.TOWER1) {
 					if (enoughResources(TowerType.BASIC)) {
 						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC);
 						tile.setTower(tower);
@@ -66,14 +66,22 @@ public class GameController implements InputProcessor{
 					}
 					
 					
-				}else{
-					if (enoughResources(TowerType.BASIC)) {
+				}else if(playState.getUI().currentState == State.TOWER2){
+					if (enoughResources(TowerType.BASIC2)) {
 						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2);
 						tile.setTower(tower);
 						playState.getTowers().addTower(tower);
 						playState.getMobs().updatePaths();
 					}
+				}else{
+					if (enoughResources(TowerType.HOUSE)) {
+						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE);
+						tile.setTower(tower);
+						playState.getTowers().addHouse(tower);
+						playState.getMobs().updatePaths();
+					}
 				}
+				
 				
 			}
 		}else{

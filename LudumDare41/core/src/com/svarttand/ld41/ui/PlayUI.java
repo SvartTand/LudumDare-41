@@ -1,22 +1,28 @@
 package com.svarttand.ld41.ui;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.states.PlayState;
+import com.svarttand.ld41.world.TowerType;
 
 public class PlayUI {
 	
-	public enum State {NONE, BUILD, A, B};
+	public enum State {NONE, TOWER1, TOWER2, HOUSE, UPGRADE};
 	public State currentState;
 	
 	private OrthographicCamera camera;
@@ -30,11 +36,29 @@ public class PlayUI {
 	
 	private Button buildButton;
 	private Button buildButton2;
+	private Button buildHouseButton;
+	private Button upgradeButton;
 	
-	public PlayUI(TextureAtlas atlas, final PlayState game){
+	private ArrayList<Button> buttonList;
+	
+	private Label resources;
+	
+	private Label Tower1Cost;
+	private Label Tower2Cost;
+	private Label HouseCost;
+	private Label UpgradeCost;
+	private LabelStyle labelStyle;
+	private Label score;
+	
+	private PlayState state;
+	
+	
+	public PlayUI(TextureAtlas atlas, final PlayState state){
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, camera);
 		stage = new Stage(viewport);
+		this.state = state;
+		buttonList = new ArrayList<Button>();
 		
 		currentState = State.NONE;
 		font = new BitmapFont();
@@ -47,39 +71,122 @@ public class PlayUI {
 	    style.disabled = skin.getDrawable("Button");
 	    
 	    
-	    buildButton = new TextButton("Build", style);
+	    generateLabels();
+	    
+	    buildButton = new TextButton("Build Tower", style);
 	    buildButton.setPosition(Application.V_WIDTH*0.01f, Application.V_HEIGHT*0.01f);
 	    buildButton.addListener( new ClickListener() {
 	         @Override
 	         public void clicked(InputEvent event, float x, float y) {
 	        	 System.out.println("build pressed");
-	        		 currentState = State.BUILD;
-	        		 buildButton2.setChecked(false);
+	        	 resetButtons(buildButton);
+	        		 currentState = State.TOWER1;
 	        		 noChecked();
 	        	 
 	            }
 	        });
 	    stage.addActor(buildButton);
 	    
-	    buildButton2 = new TextButton("Build2", style);
-	    buildButton2.setPosition(Application.V_WIDTH*0.15f, Application.V_HEIGHT*0.01f);
+	    
+	    buildButton2 = new TextButton("Build Tower2", style);
+	    buildButton2.setPosition(Application.V_WIDTH*0.14f, Application.V_HEIGHT*0.01f);
 	    buildButton2.addListener( new ClickListener() {
 	         @Override
 	         public void clicked(InputEvent event, float x, float y) {
-	        	 System.out.println("build2 pressed");
-	        		 currentState = State.A;
-	        		 buildButton.setChecked(false);
+	        	 System.out.println("Buld Tower2");
+	        	 	resetButtons(buildButton2);
+	        		 currentState = State.TOWER2;
 	        		 noChecked();
 	        	 
 	            }
 	        });
 	    stage.addActor(buildButton2);
+	    
+	    buildHouseButton = new TextButton("Build House", style);
+	    buildHouseButton.setPosition(Application.V_WIDTH*0.27f, Application.V_HEIGHT*0.01f);
+	    buildHouseButton.addListener( new ClickListener() {
+	         @Override
+	         public void clicked(InputEvent event, float x, float y) {
+	        	 System.out.println("Build House Pressed");
+	        		 resetButtons(buildHouseButton);
+	        		 currentState = State.HOUSE;
+	        		 noChecked();
+	        		 
+	        	 
+	            }
+	        });
+	    stage.addActor(buildHouseButton);
+	    
+	    upgradeButton = new TextButton("Upgrade", style);
+	    upgradeButton.setPosition(Application.V_WIDTH*0.4f, Application.V_HEIGHT*0.01f);
+	    upgradeButton.addListener( new ClickListener() {
+	         @Override
+	         public void clicked(InputEvent event, float x, float y) {
+	        	 System.out.println("Upgrade Pressed");
+	        	 resetButtons(upgradeButton);
+	        	 currentState = State.UPGRADE;
+	        	 noChecked();
+	        	 
+	            }
+	        });
+	    stage.addActor(upgradeButton);
+	    
+	    
+	    buttonList.add(buildButton);
+	    buttonList.add(buildButton2);
+	    buttonList.add(buildHouseButton);
+	    buttonList.add(upgradeButton);
+	    
+	}
+	
+	private void generateLabels(){
+		labelStyle = new LabelStyle(font, Color.WHITE);
+		Tower1Cost = new Label("Gold: " + TowerType.BASIC.getCost() , labelStyle);
+		Tower1Cost.setPosition(Application.V_WIDTH *0.01f, Application.V_HEIGHT*0.09f);
+		
+		Tower2Cost = new Label("Gold: " + TowerType.BASIC2.getCost() , labelStyle);
+		Tower2Cost.setPosition(Application.V_WIDTH *0.14f, Application.V_HEIGHT*0.09f);
+		
+		HouseCost = new Label("Gold: " + TowerType.HOUSE.getCost() , labelStyle);
+		HouseCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
+		
+		UpgradeCost = new Label("Gold: Unknown" , labelStyle);
+		UpgradeCost.setPosition(Application.V_WIDTH *0.4f, Application.V_HEIGHT*0.09f);
+		
+		resources = new Label("Gold: " + state.getResources().getGold() + ", Population: " + state.getResources().getPopulation() + "/" + state.getResources().getHousing(), labelStyle);
+		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.97f);
+		
+		score = new Label("Score: " + state.getResources().getScore(), labelStyle);
+		score.setPosition(Application.V_WIDTH * 0.01f, Application.V_HEIGHT*0.97f);
+		
+		stage.addActor(Tower1Cost);
+		stage.addActor(Tower2Cost);
+		stage.addActor(HouseCost);
+		stage.addActor(UpgradeCost);
+		stage.addActor(resources);
+		stage.addActor(score);
+	}
+	
+	public void updateResources(){
+		resources.setText("Gold: " + state.getResources().getGold() + ", Population: " + state.getResources().getPopulation() + "/" + state.getResources().getHousing());
+	}
+	
+	private void resetButtons(Button button){
+		for (int i = 0; i < buttonList.size(); i++) {
+			if (buttonList.get(i) != button) {
+				buttonList.get(i).setChecked(false);
+			}
+			
+		}
 	}
 	
 	private void noChecked(){
-		if (!buildButton.isChecked() && !buildButton2.isChecked()) {
-			currentState = State.NONE;
+		for (int i = 0; i < buttonList.size(); i++) {
+			if (buttonList.get(i).isChecked()) {
+				return;
+			}
 		}
+		currentState = State.NONE;
 		
 	}
 	

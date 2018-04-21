@@ -35,8 +35,9 @@ public class PlayState extends State{
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		map = new TileMap();
 		textureAtlas = atlas;
+		resources = new Resources(this);
 		ui = new PlayUI(textureAtlas, this);
-		resources = new Resources();
+		
 		
 		mobHandler = new MobHandler(this);
 		towerHandler = new TowerHandler(this);

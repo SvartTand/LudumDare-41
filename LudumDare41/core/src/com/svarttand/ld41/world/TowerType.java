@@ -4,7 +4,7 @@ public enum TowerType {
 	
 	BASIC("Tower1", 100, 40, 10,1, 2, 1.3f), 
 	BASIC2("Tower2", 50,20,10,0.2f, 2, 1.3f),
-	HOUSE("House", 50,20,0,0, -10, 0);
+	HOUSE("House", 0,0,5,0, -10, 0);
 	
 	private int range;
 	private String path;
