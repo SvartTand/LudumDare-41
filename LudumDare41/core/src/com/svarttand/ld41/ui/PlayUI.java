@@ -180,23 +180,23 @@ public class PlayUI {
 	}
 	
 	private void generateLabels(){
-		labelStyle = new LabelStyle(font, Color.WHITE);
-		Tower1Cost = new Label("Gold: " + (int)TowerType.BASIC.getCost() + ",Pop: " + (int) TowerType.BASIC.getHousing() , labelStyle);
+		labelStyle = new LabelStyle(font, Color.GOLD);
+		Tower1Cost = new Label("$" + (int)TowerType.BASIC.getCost() + ", Pop: " + (int) TowerType.BASIC.getHousing() , labelStyle);
 		Tower1Cost.setPosition(Application.V_WIDTH *0.01f, Application.V_HEIGHT*0.09f);
 		
-		Tower2Cost = new Label("Gold: " +(int) TowerType.BASIC2.getCost() + ",Pop: " + (int) TowerType.BASIC2.getHousing() , labelStyle);
+		Tower2Cost = new Label("$" +(int) TowerType.BASIC2.getCost() + ", Pop: " + (int) TowerType.BASIC2.getHousing() , labelStyle);
 		Tower2Cost.setPosition(Application.V_WIDTH *0.14f, Application.V_HEIGHT*0.09f);
 		
-		iceCost = new Label("Gold: " +(int) TowerType.ICE.getCost() + ",Pop: " + (int) TowerType.ICE.getHousing() , labelStyle);
+		iceCost = new Label("$" +(int) TowerType.ICE.getCost() + ", Pop: " + (int) TowerType.ICE.getHousing() , labelStyle);
 		iceCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
 		
-		HouseCost = new Label("Gold: " +(int) TowerType.HOUSE.getCost() , labelStyle);
+		HouseCost = new Label("$" +(int) TowerType.HOUSE.getCost() , labelStyle);
 		HouseCost.setPosition(Application.V_WIDTH *0.4f, Application.V_HEIGHT*0.09f);
 		
-		UpgradeCost = new Label("Gold: Cost * Level" , labelStyle);
+		UpgradeCost = new Label("$: Cost * Level" , labelStyle);
 		UpgradeCost.setPosition(Application.V_WIDTH *0.53f, Application.V_HEIGHT*0.09f);
 		
-		resources = new Label("Gold: " + (int) state.getResources().getGold() + ", Population: " + (int)state.getResources().getPopulation() + "/" + (int) state.getResources().getHousing(), labelStyle);
+		resources = new Label("$" + (int) state.getResources().getGold() + ", Population: " + (int)state.getResources().getPopulation() + "/" + (int) state.getResources().getHousing(), labelStyle);
 		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.975f);
 		
 		score = new Label("Score: " + (int)state.getResources().getScore(), labelStyle);
@@ -223,7 +223,7 @@ public class PlayUI {
 	}
 	
 	public void updateResources(){
-		resources.setText("Gold: " +(int) state.getResources().getGold() + ", Population: " + (int) state.getResources().getPopulation() + "/" + (int)state.getResources().getHousing());
+		resources.setText("$" +(int) state.getResources().getGold() + ", Population: " + (int) state.getResources().getPopulation() + "/" + (int)state.getResources().getHousing());
 		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.975f);
 		score.setText("Score: " + (int) state.getResources().getScore());
 	}

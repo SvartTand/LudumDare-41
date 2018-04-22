@@ -178,6 +178,8 @@ public class PlayState extends State{
 	}
 
 	public void gameLost() {
+		gsm.setScore((int)resources.getScore());
+		gsm.setWave(mobHandler.getWaveNumber());
 		gsm.pop();
 		
 	}

@@ -5,7 +5,7 @@ import com.svarttand.ld41.states.PlayState;
 public class Resources {
 	
 	public static final int STARTING_GOLD = 50;
-	public static final int STARTING_SCORE = 50;
+	public static final int STARTING_SCORE = 0;
 	public static final int STARTING_HOUSING = 10;
 	public static final int STARTING_POPULATION = 0;
 	

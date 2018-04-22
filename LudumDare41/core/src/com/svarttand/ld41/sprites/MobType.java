@@ -3,7 +3,8 @@ package com.svarttand.ld41.sprites;
 public enum MobType {
 	
 	MOB("Mob", 50, 400, 5, 8, 8, 0.5f),
-	SLIME("MobS", 20, 700, 5,24,3, 0.4f);
+	SLIME("MobS", 35, 700, 5,24,3, 0.4f),
+	HELI_MOB("HeliMob", 70, 70,2, 6, 4, 0.5f);
 	
 	private int speed;
 	private String path;

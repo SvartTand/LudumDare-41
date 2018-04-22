@@ -38,6 +38,7 @@ public class MenuState extends State {
 	public void update(float delta) {
 		if (b) {
 			ui.init();
+			ui.updateGameOverText(gsm.getScore(), gsm.getWave());
 			b = false;
 		}
 	}
@@ -48,6 +49,7 @@ public class MenuState extends State {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		batch.draw(textureAtlas.findRegion("Background"), 0, 0, Application.V_WIDTH, Application.V_HEIGHT);
 		batch.end();
 		ui.getStage().draw();
 

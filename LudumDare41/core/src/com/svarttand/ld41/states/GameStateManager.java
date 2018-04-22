@@ -9,6 +9,8 @@ public class GameStateManager {
 	
 	private Stack<State> states;
     public AssetManager assetManager;
+    private int score;
+    private int wave;
 
     public GameStateManager(AssetManager manager){
         assetManager = manager;
@@ -49,5 +51,23 @@ public class GameStateManager {
     public void resize(int width, int height){
         states.peek().resize(width,height);
     }
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getWave() {
+		return wave;
+	}
+
+	public void setWave(int wave) {
+		this.wave = wave;
+	}
+    
+    
 
 }

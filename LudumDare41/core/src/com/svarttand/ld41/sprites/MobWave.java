@@ -7,7 +7,10 @@ import java.util.Random;
 
 public class MobWave {
 	
-	private static final int BASIC_AMOUNT[] = {2,1,1};
+	private static final int BASIC_AMOUNT[] = {2,1,2};
+	private static final int HELI_AMOUNT[] = {1,1,6};
+	private static final int UFO_AMOUNT[] = {4,0,2};
+	private static final int SLIME_AMOUNT[] = {2,3,0};
 	
 	private ArrayList<MobType> list;
 	private float exponent;
@@ -24,15 +27,26 @@ public class MobWave {
 		time = 0;
 		
 		this.handler = handler;
+		int[] mobs = BASIC_AMOUNT;
 		
-		for (int j = 0; j < BASIC_AMOUNT[0]*exponent; j++) {
+		int x = rand.nextInt(4);
+		if (x == 0) {
+			mobs = HELI_AMOUNT;
+		}else if (x ==1) {
+			mobs = UFO_AMOUNT;
+		}else if (x == 2) {
+			mobs = SLIME_AMOUNT;
+		}
+		
+		
+		for (int j = 0; j < mobs[0]*exponent; j++) {
 			list.add(MobType.MOB);
 		}
-		for (int j = 0; j < BASIC_AMOUNT[1]*exponent; j++) {
+		for (int j = 0; j < mobs[1]*exponent; j++) {
 			list.add(MobType.SLIME);
 		}
-		for (int j = 0; j < BASIC_AMOUNT[2]*exponent; j++) {
-			list.add(MobType.MOB);
+		for (int j = 0; j < mobs[2]*exponent; j++) {
+			list.add(MobType.HELI_MOB);
 		}
 		interval = MobHandler.WAVE_FREQUENCY*0.2f/(list.size()+1);
 		if (!first) {
@@ -48,12 +62,11 @@ public class MobWave {
 				buff = CardType.ALLSTAR;
 				System.out.println("ALLSTAR");
 			}else if(i == 3) {
-				buff = CardType.MORE_DMG;
-				System.out.println("DMG");
+				buff = CardType.EARTHQUAQE;
+				handler.earthquake();
 			}else if(i == 4) {
 				buff = CardType.EARTHQUAQE;
 				handler.earthquake();
-				System.out.println("DMG");
 			}else{
 				buff = CardType.BASIC;
 				System.out.println("Basic");
