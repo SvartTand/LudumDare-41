@@ -7,7 +7,8 @@ public enum CardType {
 	ALLSTAR(2,2,0.5f,1.5f, "The Enemy Used a Ultimate Charge \n 1.5x more Health \n 2x faster mobs \n 2x more Damage your center will take"),
 	SABOTAGE(1,1,0.5f,1, ""),
 	MORE_DMG(1,2,1,1.5f, "The Enemy Used a DamageBuff \n 1.5x more Damage your center will take"),
-	MORE_HP(1,1,1,2, "The Enemy Used a HealthBuff \n 2x Healthier Mobs");
+	MORE_HP(1,1,1,2, "The Enemy Used a HealthBuff \n 2x Healthier Mobs"),
+	EARTHQUAQE(1,1,1,1,"ERTHQUAKE!!\nSome Buildings might get destroyed!");
 	
 	public float getHp() {
 		return hp;

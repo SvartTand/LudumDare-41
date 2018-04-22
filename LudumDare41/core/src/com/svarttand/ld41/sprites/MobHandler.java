@@ -125,6 +125,11 @@ public class MobHandler {
 		
 		
 	}
+
+	public void earthquake() {
+		state.getTowers().earthQuake();
+		
+	}
 	
 
 }

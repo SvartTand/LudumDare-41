@@ -17,6 +17,7 @@ public class AudioHandler {
 	public static final int SMALL_EXP = 6;
 	public static final int BUILD = 7;
 	public static final int UPPGRADE = 8;
+	public static final int EARTHQUAKE = 9;
 	
 	
 	private ArrayList<Sound> audioList;

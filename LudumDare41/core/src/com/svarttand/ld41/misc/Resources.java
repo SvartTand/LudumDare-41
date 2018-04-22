@@ -45,6 +45,15 @@ public class Resources {
 		state.getUI().updateResources();
 	}
 
+	public void removePop(float p){
+		population -= p;
+		state.getUI().updateResources();
+	}
+	public void removeHousing(float h){
+		housing += h;
+		state.getUI().updateResources();
+		
+	}
 
 	public void addPopulation(float f) {
 		if (f <= 0) {

@@ -13,7 +13,7 @@ import com.svarttand.ld41.Application;
 
 public class LoadingState extends State {
 		
-		public static final int AUDIO_AMOUNT = 9;
+		public static final int AUDIO_AMOUNT = 10;
 		public static final String ATLAS_PATH = "ThePack.pack";
 	 	private Viewport viewport;
 	    private boolean loaded;

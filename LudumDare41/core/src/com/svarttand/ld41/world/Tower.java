@@ -120,6 +120,11 @@ public class Tower {
 		levelLabel.setText("" + level);
 		
 	}
+
+	public void delete() {
+		tile.setTower(null);
+		
+	}
 	
 	
 

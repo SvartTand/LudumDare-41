@@ -36,7 +36,8 @@ public class MobWave {
 		}
 		interval = MobHandler.WAVE_FREQUENCY*0.2f/(list.size()+1);
 		if (!first) {
-			int i = rand.nextInt(6);
+			int i = rand.nextInt(7);
+			//handler.earthquake();
 			if (i == 0) {
 				buff = CardType.MORE_HP;
 				System.out.println("HP");
@@ -49,11 +50,16 @@ public class MobWave {
 			}else if(i == 3) {
 				buff = CardType.MORE_DMG;
 				System.out.println("DMG");
+			}else if(i == 4) {
+				buff = CardType.EARTHQUAQE;
+				handler.earthquake();
+				System.out.println("DMG");
 			}else{
 				buff = CardType.BASIC;
 				System.out.println("Basic");
 			}
 		}else{
+			
 			buff = CardType.BASIC;
 			System.out.println("Basic");
 		}
