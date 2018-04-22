@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
+import com.svarttand.ld41.misc.AudioHandler;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.TowerType;
 
@@ -99,6 +100,7 @@ public class PlayUI {
 	        	 resetButtons(buildButton);
 	        		 currentState = State.TOWER1;
 	        		 noChecked();
+	        		 state.getAudioHandler().playSound(AudioHandler.SELECT);
 	        	 
 	            }
 	        });
@@ -114,6 +116,7 @@ public class PlayUI {
 	        	 	resetButtons(buildButton2);
 	        		 currentState = State.TOWER2;
 	        		 noChecked();
+	        		 state.getAudioHandler().playSound(AudioHandler.SELECT);
 	        	 
 	            }
 	        });
@@ -128,6 +131,7 @@ public class PlayUI {
 	        		 resetButtons(buildHouseButton);
 	        		 currentState = State.HOUSE;
 	        		 noChecked();
+	        		 state.getAudioHandler().playSound(AudioHandler.SELECT);
 	        		 
 	        	 
 	            }
@@ -143,6 +147,7 @@ public class PlayUI {
 	        	 resetButtons(upgradeButton);
 	        	 currentState = State.UPGRADE;
 	        	 noChecked();
+	        	 state.getAudioHandler().playSound(AudioHandler.SELECT);
 	        	 
 	            }
 	        });
@@ -158,13 +163,13 @@ public class PlayUI {
 	
 	private void generateLabels(){
 		labelStyle = new LabelStyle(font, Color.WHITE);
-		Tower1Cost = new Label("Gold: " + TowerType.BASIC.getCost() , labelStyle);
+		Tower1Cost = new Label("Gold: " + (int)TowerType.BASIC.getCost() , labelStyle);
 		Tower1Cost.setPosition(Application.V_WIDTH *0.01f, Application.V_HEIGHT*0.09f);
 		
-		Tower2Cost = new Label("Gold: " + TowerType.BASIC2.getCost() , labelStyle);
+		Tower2Cost = new Label("Gold: " +(int) TowerType.BASIC2.getCost() , labelStyle);
 		Tower2Cost.setPosition(Application.V_WIDTH *0.14f, Application.V_HEIGHT*0.09f);
 		
-		HouseCost = new Label("Gold: " + TowerType.HOUSE.getCost() , labelStyle);
+		HouseCost = new Label("Gold: " +(int) TowerType.HOUSE.getCost() , labelStyle);
 		HouseCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
 		
 		UpgradeCost = new Label("Gold: Cost * Level" , labelStyle);

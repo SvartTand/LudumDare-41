@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.svarttand.ld41.Application;
+import com.svarttand.ld41.misc.AudioHandler;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.ui.PlayUI.State;
@@ -98,9 +99,13 @@ public class GameController implements InputProcessor{
 							playState.getMobs().updatePaths();
 						}
 					}	
+				}else{
+					playState.getUI().addNewFloatingText("You Can't Build There", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
+					playState.getAudioHandler().playSound(AudioHandler.NOT_POSSIBLE2);
 				}
 			}else{
 				playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
+				playState.getAudioHandler().playSound(AudioHandler.NOT_POSSIBLE2);
 			}
 		}
 		
@@ -121,9 +126,11 @@ public class GameController implements InputProcessor{
 				return true;
 			}
 			playState.getUI().addNewFloatingText("Not Enough Housing", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
+			playState.getAudioHandler().playSound(AudioHandler.NOT_POSSIBLE2);
 			return false;
 		}
 		playState.getUI().addNewFloatingText("Not Enough Gold", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
+		playState.getAudioHandler().playSound(AudioHandler.NOT_POSSIBLE2);
 		return false;
 	}
 

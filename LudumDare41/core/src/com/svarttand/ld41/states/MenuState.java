@@ -45,7 +45,7 @@ public class MenuState extends State {
 	@Override
 	public void render(SpriteBatch batch, float delta) {
 		batch.setProjectionMatrix(cam.combined);
-		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.end();

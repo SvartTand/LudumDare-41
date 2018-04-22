@@ -34,8 +34,7 @@ public class MobWave {
 		for (int j = 0; j < BASIC_AMOUNT[2]*exponent; j++) {
 			list.add(MobType.MOB);
 		}
-		interval = MobHandler.WAVE_FREQUENCY/5/list.size()+1;
-		
+		interval = MobHandler.WAVE_FREQUENCY*0.2f/(list.size()+1);
 		if (!first) {
 			int i = rand.nextInt(6);
 			if (i == 0) {

@@ -23,6 +23,8 @@ public class Projectile {
 	}
 
 	public void update(float delta, TowerHandler handler) {
+		destX = target.getPosX();
+		destY = target.getPosY();
 		
 		float angle = (float) Math.atan2(destY - posY, destX - posX);
 		posX += (float) Math.cos(angle) * type.getSpeed() * delta;

@@ -30,6 +30,8 @@ public class Mob {
 	private float dmg;
 	private MobHandler handler;
 	
+	private boolean dead;
+	
 	private Animation animation;
 	
 	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler, CardType buff) {
@@ -46,6 +48,7 @@ public class Mob {
 		animation = new Animation(type.getPath(), type.getFrames(), type.getDuration());
 		speed = type.getSpeed()*buff.getSpeed();
 		dmg = type.getPoints()*buff.getDmg();
+		dead = false;
 	}
 	
 	private void getRoute(Tile start, Tile dest) {
@@ -111,8 +114,9 @@ public class Mob {
 
 	public void takeDmg(float dmg) {
 		hp -= dmg;
-		if (hp <= 0) {
+		if (hp <= 0 && !dead) {
 			handler.remove(this, true);
+			dead = true;
 		}
 		
 	}

@@ -102,7 +102,7 @@ public class PlayState extends State{
 		screenShake.update(delta, cam);
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();
-		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		map.render(batch, textureAtlas);
@@ -127,6 +127,7 @@ public class PlayState extends State{
 	public void dispose() {
 		ui.getStage().dispose();
 		controller.dispose();
+		audioHandler.dispose();
 		
 	}
 

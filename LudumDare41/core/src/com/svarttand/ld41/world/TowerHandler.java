@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.svarttand.ld41.misc.AudioHandler;
 import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.states.PlayState;
 
@@ -51,6 +52,7 @@ public class TowerHandler {
 
 	public void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
+		playState.getAudioHandler().playSound(AudioHandler.LASERSHOT);
 		
 	}
 
