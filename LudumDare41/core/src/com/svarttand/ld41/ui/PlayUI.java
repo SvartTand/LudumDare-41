@@ -61,6 +61,7 @@ public class PlayUI {
 	private Label hpText;
 	private Label nextWave;
 	private Label iceCost;
+	private Label castleText;
 	
 	private PlayState state;
 	
@@ -93,7 +94,7 @@ public class PlayUI {
 	    
 	    generateLabels();
 	    
-	    buildButton = new TextButton("Build Tower", style);
+	    buildButton = new TextButton("Build Tower\nLong Range", style);
 	    buildButton.setPosition(Application.V_WIDTH*0.01f, Application.V_HEIGHT*0.01f);
 	    buildButton.addListener( new ClickListener() {
 	         @Override
@@ -109,7 +110,7 @@ public class PlayUI {
 	    stage.addActor(buildButton);
 	    
 	    
-	    buildButton2 = new TextButton("Build \nFire-Tower", style);
+	    buildButton2 = new TextButton("Build \nFire-Tower\nShort Range", style);
 	    buildButton2.setPosition(Application.V_WIDTH*0.14f, Application.V_HEIGHT*0.01f);
 	    buildButton2.addListener( new ClickListener() {
 	         @Override
@@ -124,7 +125,7 @@ public class PlayUI {
 	        });
 	    stage.addActor(buildButton2);
 	    
-	    buildIce = new TextButton("Build \nIce-Tower", style);
+	    buildIce = new TextButton("Build \nIce-Tower\nSlows enemies", style);
 	    buildIce.setPosition(Application.V_WIDTH*0.27f, Application.V_HEIGHT*0.01f);
 	    buildIce.addListener( new ClickListener() {
 	         @Override
@@ -208,6 +209,9 @@ public class PlayUI {
 		hpText = new Label("" + hp + "/" + MAX_HP, labelStyle);
 		hpText.setPosition((Application.V_WIDTH*0.84f - hpText.getWidth()), Application.V_HEIGHT*0.045f);
 		
+		castleText = new Label("Castle Health:", labelStyle);
+		castleText.setPosition((Application.V_WIDTH*0.87f - castleText.getWidth()), Application.V_HEIGHT*0.08f);
+		
 		stage.addActor(Tower1Cost);
 		stage.addActor(Tower2Cost);
 		stage.addActor(HouseCost);
@@ -217,6 +221,7 @@ public class PlayUI {
 		stage.addActor(nextWave);
 		stage.addActor(hpText);
 		stage.addActor(iceCost);
+		stage.addActor(castleText);
 	}
 	public void updateTimer(float time){
 		nextWave.setText("Next Wave in: " +(int) time);

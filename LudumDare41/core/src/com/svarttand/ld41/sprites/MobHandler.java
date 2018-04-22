@@ -22,14 +22,17 @@ public class MobHandler {
 	private int waveNumber;
 	private MobWave currentWave;
 	
+	private float textCounter;
+	
 	public MobHandler(PlayState state) {
 		mobList = new ArrayList<Mob>();
 		sum = WAVE_FREQUENCY;
 		this.state = state;
 		waveNumber = 1;
-		currentWave = new MobWave(waveNumber, this,true);
-		waveNumber = 2;
+		currentWave = null;
+		waveNumber = 1;
 		random = new Random();
+		
 	}
 	
 	public void addMob(MobType type, CardType buff){
@@ -66,16 +69,44 @@ public class MobHandler {
 	}
 	
 	public void update(float delta){
+		
 		sum -= delta;
-		currentWave.update(delta);
-		if (sum <= 0) {
+		if (currentWave == null && waveNumber == 1) {
+			textCounter+=delta;
 			
-			System.out.println(mobList.size());
-			currentWave = new MobWave(waveNumber, this, false);
+			if ((int)sum == WAVE_FREQUENCY - 40) {
+			}else if ((int)sum == WAVE_FREQUENCY - 35) {
+				state.getUI().addNewFloatingText("Good Luck!", Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.5f, 5, false, 1);
+			}else if ((int)sum == WAVE_FREQUENCY - 25) {
+				state.getUI().addNewFloatingText("Population is needed to man the towers, \nYou get more Population by building Houses", Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 9, false, 1);
+			}else if ((int)sum == WAVE_FREQUENCY - 15) {
+				state.getUI().addNewFloatingText("$ is used for Buying and upgrading buildings, \n$ is earned by killing enemies", Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 7, false, 1);
+			}else if ((int)sum == WAVE_FREQUENCY - 6) {
+				state.getUI().addNewFloatingText("There Are Two Resources\n$ and Population(Pop)", Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 7, false, 1);
+			}else if ((int)sum == WAVE_FREQUENCY-1) {
+				state.getUI().addNewFloatingText("Welcome To The Game! \nYour Goal is to Defend the Castle", Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 4, false, 1);
+			}
+				
+	
+			
+			
+		}else{
+			currentWave.update(delta);
+			
+		}
+		if (sum <= 0) {
+			if (waveNumber == 1) {
+				currentWave = new MobWave(waveNumber, this, true);
+			}else{
+				currentWave = new MobWave(waveNumber, this, false);
+			}
+			
 			state.getUI().addNewFloatingText(currentWave.getCardType().getExplanation(), Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 10, false, 1);
 			waveNumber++;
 			sum = WAVE_FREQUENCY;
 		}
+		
+		
 		for (int i = 0; i < mobList.size(); i++) {
 			mobList.get(i).update(delta);
 		}

@@ -58,7 +58,7 @@ public class MenuUI {
 	    gameOverText = new Label("GAME OVER!" , labelStyle);
 	    gameOverText.setPosition(Application.V_WIDTH *0.5f - gameOverText.getWidth()*0.5f, Application.V_HEIGHT*0.3f);
 	    stage.addActor(gameOverText);
-	    //gameOverText.setVisible(false);
+	    gameOverText.setVisible(false);
 	    
 	    playButton = new TextButton("Play", style);
 	    playButton.setPosition(Application.V_WIDTH*0.5f-playButton.getWidth()*0.5f, Application.V_HEIGHT*0.15f -playButton.getHeight()*0.5f);
