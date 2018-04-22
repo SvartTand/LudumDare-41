@@ -32,7 +32,6 @@ public class PlayState extends State{
 
 	private Resources resources;
 	
-	private ParticleEffect effect;
 	
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
@@ -80,8 +79,12 @@ public class PlayState extends State{
 		batch.begin();
 		map.render(batch, textureAtlas);
 		towerHandler.render(batch, textureAtlas);
+		towerHandler.renderLabels(batch);
 		mobHandler.render(batch, textureAtlas);
 		batch.draw(textureAtlas.findRegion("Panel"), 0, 0);
+		batch.draw(textureAtlas.findRegion("PanelTopRight"), Application.V_WIDTH - textureAtlas.findRegion("PanelTopRight").getRegionWidth(), Application.V_HEIGHT- textureAtlas.findRegion("PanelTopRight").getRegionHeight());
+		batch.draw(textureAtlas.findRegion("PanelTopLeft"), 0, Application.V_HEIGHT- textureAtlas.findRegion("PanelTopLeft").getRegionHeight());
+		batch.draw(textureAtlas.findRegion("PanelTopCenter"), Application.V_WIDTH*0.5f - textureAtlas.findRegion("PanelTopCenter").getRegionWidth()*0.5f, Application.V_HEIGHT- textureAtlas.findRegion("PanelTopCenter").getRegionHeight());
 		particleHandler.render(batch, delta);
 		ui.render(batch);
 		batch.end();
@@ -92,6 +95,8 @@ public class PlayState extends State{
 	@Override
 	public void dispose() {
 		ui.getStage().dispose();
+		controller.dispose();
+		
 	}
 
 	@Override

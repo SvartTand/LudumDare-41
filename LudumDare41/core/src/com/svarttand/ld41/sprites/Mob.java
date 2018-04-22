@@ -3,7 +3,9 @@ package com.svarttand.ld41.sprites;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Circle;
+import com.svarttand.ld41.misc.Animation;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.world.Tile;
 import com.svarttand.ld41.world.TileMap;
@@ -26,6 +28,8 @@ public class Mob {
 	private float hp;
 	private MobHandler handler;
 	
+	private Animation animation;
+	
 	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler) {
 		posX = x;
 		posY = y;
@@ -37,6 +41,7 @@ public class Mob {
 		bounds = new Circle(posX, posY, type.getRadius());
 		hp = type.getHp();
 		this.handler = handler;
+		animation = new Animation(type.getPath(), type.getFrames(), type.getDuration());
 	}
 	
 	private void getRoute(Tile start, Tile dest) {
@@ -44,6 +49,7 @@ public class Mob {
 	}
 
 	public void update(float delta){
+		animation.update(delta);
 		
 		float x2;
 		float y2;
@@ -79,7 +85,7 @@ public class Mob {
 	}
 
 	public String getPath() {
-		return path;
+		return animation.getFrame();
 	}
 
 	public void updatePath() {

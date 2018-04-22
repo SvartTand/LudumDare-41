@@ -18,7 +18,6 @@ public class MobHandler {
 	private float sum;
 	private Random random;
 	private int waveNumber;
-	
 	private MobWave currentWave;
 	
 	public MobHandler(PlayState state) {

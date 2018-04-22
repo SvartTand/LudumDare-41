@@ -2,6 +2,9 @@ package com.svarttand.ld41.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.states.PlayState;
@@ -12,9 +15,13 @@ import com.svarttand.ld41.world.TowerType;
 
 public class GameController implements InputProcessor{
 	private PlayState playState;
+	private LabelStyle style;
+	private BitmapFont font;
 	
 	public GameController(PlayState state) {
 		playState = state;
+		font = new BitmapFont();
+		style = new LabelStyle(font, Color.WHITE);
 	}
 
 	@Override
@@ -54,40 +61,46 @@ public class GameController implements InputProcessor{
 	
 
 	private void buildTower(Tile tile) {
-		if (tile.getTower() == null) {
-			if (!doesBlock(tile)) {
-				//System.out.println("works");
-				Tower tower = null;
-				if (playState.getUI().currentState == State.TOWER1) {
-					if (enoughResources(TowerType.BASIC,tile)) {
-						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC);
-						tile.setTower(tower);
-						playState.getTowers().addTower(tower);
-						playState.getMobs().updatePaths();
-					}
-					
-					
-				}else if(playState.getUI().currentState == State.TOWER2){
-					if (enoughResources(TowerType.BASIC2,tile)) {
-						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2);
-						tile.setTower(tower);
-						playState.getTowers().addTower(tower);
-						playState.getMobs().updatePaths();
-					}
-				}else{
-					if (enoughResources(TowerType.HOUSE, tile)) {
-						tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE);
-						tile.setTower(tower);
-						playState.getTowers().addHouse(tower);
-						playState.getMobs().updatePaths();
-					}
-				}
-				
-				
-			}
+		if (playState.getUI().currentState == State.UPGRADE) {
+			
 		}else{
-			playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true);
+			if (tile.getTower() == null) {
+				if (!doesBlock(tile)) {
+					//System.out.println("works");
+					Tower tower = null;
+					if (playState.getUI().currentState == State.TOWER1) {
+						if (enoughResources(TowerType.BASIC,tile)) {
+							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC,style);
+							tile.setTower(tower);
+							playState.getTowers().addTower(tower);
+							playState.getMobs().updatePaths();
+						}
+						
+						
+					}else if(playState.getUI().currentState == State.TOWER2){
+						if (enoughResources(TowerType.BASIC2,tile)) {
+							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2,style);
+							tile.setTower(tower);
+							playState.getTowers().addTower(tower);
+							playState.getMobs().updatePaths();
+						}
+					}else{
+						if (enoughResources(TowerType.HOUSE, tile)) {
+							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE,style);
+							tile.setTower(tower);
+							playState.getTowers().addHouse(tower);
+							playState.getMobs().updatePaths();
+						}
+					}	
+				}
+			}else{
+				playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true);
+			}
 		}
+		
+				
+				
+		
 		
 		
 		
@@ -143,6 +156,9 @@ public class GameController implements InputProcessor{
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public void dispose(){
+		font.dispose();
 	}
 
 }

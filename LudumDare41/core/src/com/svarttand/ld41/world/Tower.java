@@ -3,6 +3,8 @@ package com.svarttand.ld41.world;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.svarttand.ld41.sprites.Mob;
 
 public class Tower {
@@ -20,7 +22,9 @@ public class Tower {
 	
 	private int level;
 	
-	public Tower(Tile tile, float f, float g, TowerType type) {
+	private Label levelLabel;
+	
+	public Tower(Tile tile, float f, float g, TowerType type, LabelStyle style) {
 		posX = f;
 		posY = g;
 		this.tile = tile;
@@ -29,6 +33,8 @@ public class Tower {
 		target = null;
 		time = 0;
 		level = 1;
+		levelLabel = new Label("" + level, style);
+		levelLabel.setPosition(posX, posY);
 	}
 	
 	public void update(float delta, ArrayList<Mob> mobs, TowerHandler handler){
@@ -60,6 +66,10 @@ public class Tower {
 		}
 		
 		
+	}
+	
+	public Label getLabel(){
+		return levelLabel;
 	}
 
 	public Tile getTile() {

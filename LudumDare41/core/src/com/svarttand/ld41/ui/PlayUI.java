@@ -155,17 +155,17 @@ public class PlayUI {
 		HouseCost = new Label("Gold: " + TowerType.HOUSE.getCost() , labelStyle);
 		HouseCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
 		
-		UpgradeCost = new Label("Gold: Unknown" , labelStyle);
+		UpgradeCost = new Label("Gold: Cost * Level" , labelStyle);
 		UpgradeCost.setPosition(Application.V_WIDTH *0.4f, Application.V_HEIGHT*0.09f);
 		
-		resources = new Label("Gold: " + state.getResources().getGold() + ", Population: " + state.getResources().getPopulation() + "/" + state.getResources().getHousing(), labelStyle);
-		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.97f);
+		resources = new Label("Gold: " + (int) state.getResources().getGold() + ", Population: " + (int)state.getResources().getPopulation() + "/" + (int) state.getResources().getHousing(), labelStyle);
+		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.975f);
 		
-		score = new Label("Score: " + state.getResources().getScore(), labelStyle);
-		score.setPosition(Application.V_WIDTH * 0.01f, Application.V_HEIGHT*0.97f);
+		score = new Label("Score: " + (int)state.getResources().getScore(), labelStyle);
+		score.setPosition(Application.V_WIDTH * 0.01f, Application.V_HEIGHT*0.975f);
 		
 		nextWave = new Label("Next Wave in: " + 60, labelStyle);
-		nextWave.setPosition((Application.V_WIDTH*0.99f - nextWave.getWidth()), Application.V_HEIGHT*0.97f);
+		nextWave.setPosition((Application.V_WIDTH*0.99f - nextWave.getWidth()), Application.V_HEIGHT*0.975f);
 		
 		stage.addActor(Tower1Cost);
 		stage.addActor(Tower2Cost);
@@ -180,8 +180,9 @@ public class PlayUI {
 	}
 	
 	public void updateResources(){
-		resources.setText("Gold: " + state.getResources().getGold() + ", Population: " + state.getResources().getPopulation() + "/" + state.getResources().getHousing());
-		score.setText("Score: " + state.getResources().getScore());
+		resources.setText("Gold: " +(int) state.getResources().getGold() + ", Population: " + (int) state.getResources().getPopulation() + "/" + (int)state.getResources().getHousing());
+		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.975f);
+		score.setText("Score: " + (int) state.getResources().getScore());
 	}
 	
 	public void updateFloatinTexts(float delta){

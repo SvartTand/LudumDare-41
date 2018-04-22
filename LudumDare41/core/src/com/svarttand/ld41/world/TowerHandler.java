@@ -73,4 +73,14 @@ public class TowerHandler {
 		return sum;
 	}
 
+	public void renderLabels(SpriteBatch batch) {
+		for (int i = 0; i < towers.size(); i++) {
+			towers.get(i).getLabel().draw(batch, 1);
+		}
+		for (int i = 0; i < houses.size(); i++) {
+			houses.get(i).getLabel().draw(batch, 1);
+		}
+		
+	}
+
 }
