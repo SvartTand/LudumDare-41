@@ -44,6 +44,8 @@ public class GameController implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		
+		//playState.getShake().shake(500, 500, 500);
 		if (screenY < Gdx.graphics.getHeight() * 0.883f) {
 			Tile tile = playState.getMap().getTileConvert(screenX, screenY);
 			System.out.println(tile.getPosX()/32 + ", " + tile.getPosY()/32);

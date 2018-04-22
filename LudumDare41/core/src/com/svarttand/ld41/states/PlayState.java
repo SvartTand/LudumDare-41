@@ -1,6 +1,7 @@
 package com.svarttand.ld41.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,9 +15,11 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
+import com.svarttand.ld41.misc.AudioHandler;
 import com.svarttand.ld41.misc.Card;
 import com.svarttand.ld41.misc.ParticleHandler;
 import com.svarttand.ld41.misc.Resources;
+import com.svarttand.ld41.misc.ScreenShake;
 import com.svarttand.ld41.sprites.CardType;
 import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.ui.PlayUI;
@@ -37,12 +40,15 @@ public class PlayState extends State{
 	private TowerHandler towerHandler;
 
 	private Resources resources;
-	private Card card;
-	
-	private LabelStyle style;
-	private BitmapFont font;
 	
 	private ShapeRenderer sRenderer;
+	
+	private AudioHandler audioHandler;
+	
+	private ScreenShake screenShake;
+	
+	private float baseX;
+	private float baseY;
 	
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
@@ -53,9 +59,8 @@ public class PlayState extends State{
 		textureAtlas = atlas;
 		resources = new Resources(this);
 		ui = new PlayUI(textureAtlas, this);
-		font = new BitmapFont();
-		style = new LabelStyle(font, Color.WHITE);
 		particleHandler = new ParticleHandler(atlas);
+		audioHandler = new AudioHandler(gsm.assetManager);
 		
 		mobHandler = new MobHandler(this);
 		towerHandler = new TowerHandler(this);
@@ -65,15 +70,18 @@ public class PlayState extends State{
 
 		multiplexer.addProcessor(ui.getStage());
 		Gdx.input.setInputProcessor(multiplexer);
+		screenShake = new ScreenShake();
 		
 		sRenderer = new ShapeRenderer();
+		
+		baseX = Application.V_WIDTH*0.5f;
+		baseY = Application.V_HEIGHT*0.5f;
 		//card = new Card(Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.5f);
 		
 	}
 
 	@Override
 	protected void handleInput(float delta) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -83,13 +91,17 @@ public class PlayState extends State{
 		towerHandler.update(delta);
 		ui.updateTimer(mobHandler.getTimeToNextWave());
 		ui.updateFloatinTexts(delta);
+		cam.position.x = baseX;
+		cam.position.y = baseY;
+		//screenShake.update(delta, cam);
 		//card.update(delta);
 	}
 
 	@Override
 	public void render(SpriteBatch batch, float delta) {
-		
+		screenShake.update(delta, cam);
 		batch.setProjectionMatrix(cam.combined);
+		cam.update();
 		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
@@ -115,7 +127,6 @@ public class PlayState extends State{
 	public void dispose() {
 		ui.getStage().dispose();
 		controller.dispose();
-		font.dispose();
 		
 	}
 
@@ -125,6 +136,14 @@ public class PlayState extends State{
 		
 	}
 
+	public AudioHandler getAudioHandler(){
+		return audioHandler;
+	}
+	
+	public ScreenShake getShake(){
+		return screenShake;
+	}
+	
 	public TileMap getMap() {
 		return map;
 	}

@@ -6,6 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.svarttand.ld41.Application;
+import com.svarttand.ld41.misc.AudioHandler;
 import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.Tile;
@@ -97,7 +98,11 @@ public class MobHandler {
 			state.getResources().addGold(mob.getType().getPoints());
 			state.getResources().addScore(mob.getType().getPoints());
 			mobList.remove(mob);
+			state.getAudioHandler().playSound(AudioHandler.NOT_POSSIBLE);
+			state.getShake().shake(50, 50, 50);
 		}else{
+			state.getParticleHandler().addParticleEffect(ParticleType.EXPLOSION, mob.getPosX(), mob.getPosY());
+			state.getShake().shake(500, 500, 500);
 			mobList.remove(mob);
 		}
 		
@@ -116,6 +121,8 @@ public class MobHandler {
 
 	public void takeDamage(float dmg) {
 		state.getUI().takeHP(dmg);
+		state.getAudioHandler().playSound(AudioHandler.EXPLOSION);
+		
 		
 	}
 	
