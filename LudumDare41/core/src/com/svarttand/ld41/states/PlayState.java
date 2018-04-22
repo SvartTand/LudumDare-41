@@ -128,6 +128,7 @@ public class PlayState extends State{
 		ui.getStage().dispose();
 		controller.dispose();
 		audioHandler.dispose();
+		particleHandler.dispose();
 		
 	}
 

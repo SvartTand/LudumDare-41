@@ -87,5 +87,9 @@ public class Tile {
 	public void setTower(Tower tower){
 		this.tower = tower;
 	}
+
+	public int getMovmentCost() {
+		return 2;
+	}
 	
 }

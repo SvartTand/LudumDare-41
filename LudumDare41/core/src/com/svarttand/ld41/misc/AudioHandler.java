@@ -15,6 +15,8 @@ public class AudioHandler {
 	public static final int NOT_POSSIBLE = 4;
 	public static final int NOT_POSSIBLE2 = 5;
 	public static final int SMALL_EXP = 6;
+	public static final int BUILD = 7;
+	public static final int UPPGRADE = 8;
 	
 	
 	private ArrayList<Sound> audioList;

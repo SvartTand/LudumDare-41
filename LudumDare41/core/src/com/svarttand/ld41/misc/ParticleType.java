@@ -5,7 +5,8 @@ public enum ParticleType {
 	SPLASH("splash.p", 10, false),
 	DEATH("Death.p", 10,false),
 	HIT("Hit.p",10,false),
-	EXPLOSION("Explosion.p", 10,false);
+	EXPLOSION("Explosion.p", 10,false),
+	BUILD("Build.p",10,false);
 	
 	private String path;
 	private int poolSIze;

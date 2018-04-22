@@ -56,9 +56,9 @@ public class MobHandler {
 		return currentWave;
 	}
 	
-	public void updatePaths(){
+	public void updatePaths(Tile tile){
 		for (int i = 0; i < mobList.size(); i++) {
-			mobList.get(i).updatePath();
+			mobList.get(i).updatePath(tile);
 			System.out.println(mobList.get(i).isUpdating());
 			
 		}

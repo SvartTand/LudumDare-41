@@ -36,6 +36,7 @@ public class ParticleHandler {
 	public static void addParticleEffect(ParticleType type, float x, float y) {
 		PooledEffect effect = pools.get(type).obtain();
 		if (effect != null) {
+			System.out.println("yes");
 			activeEffectsMap.get(type).add(effect);
 			effect.setPosition(x, y);
 		}

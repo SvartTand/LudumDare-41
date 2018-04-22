@@ -88,7 +88,7 @@ public class PathFinding {
 		int gScore = 0;
 		float hScore = calculateDistance(dest, temp);
 		while(temp.getParent() != null){
-			//gScore += temp.getType().getMovmentCost();
+			gScore += temp.getMovmentCost();
 			temp = temp.getParent();
 		}
 		return gScore + hScore;

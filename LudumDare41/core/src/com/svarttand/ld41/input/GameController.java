@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.misc.AudioHandler;
+import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.misc.PathFinding;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.ui.PlayUI.State;
 import com.svarttand.ld41.world.Tile;
+import com.svarttand.ld41.world.TileMap;
 import com.svarttand.ld41.world.Tower;
 import com.svarttand.ld41.world.TowerType;
 
@@ -68,6 +70,8 @@ public class GameController implements InputProcessor{
 			if (tile.getTower() != null) {
 				if (enoughResources(tile.getTower().getType(),tile, tile.getTower().getLevel())) {
 					tile.getTower().levelUp();
+					playState.getAudioHandler().playSound(AudioHandler.UPPGRADE);
+					playState.getParticleHandler().addParticleEffect(ParticleType.BUILD, tile.getPosX()+ TileMap.TILE_SIZE*0.5f, tile.getPosY()+ TileMap.TILE_SIZE*0.5f);
 				}
 			}
 		}else{
@@ -78,25 +82,34 @@ public class GameController implements InputProcessor{
 					if (playState.getUI().currentState == State.TOWER1) {
 						if (enoughResources(TowerType.BASIC,tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC,style);
+							playState.getAudioHandler().playSound(AudioHandler.BUILD);
 							tile.setTower(tower);
 							playState.getTowers().addTower(tower);
-							playState.getMobs().updatePaths();
+							playState.getMobs().updatePaths(tile);
+							playState.getParticleHandler().addParticleEffect(ParticleType.BUILD, tile.getPosX()+ TileMap.TILE_SIZE*0.5f, tile.getPosY()+ TileMap.TILE_SIZE*0.5f);
+							
 						}
 						
 						
 					}else if(playState.getUI().currentState == State.TOWER2){
 						if (enoughResources(TowerType.BASIC2,tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2,style);
+							playState.getAudioHandler().playSound(AudioHandler.BUILD);
 							tile.setTower(tower);
 							playState.getTowers().addTower(tower);
-							playState.getMobs().updatePaths();
+							playState.getMobs().updatePaths(tile);
+							playState.getParticleHandler().addParticleEffect(ParticleType.BUILD, tile.getPosX()+ TileMap.TILE_SIZE*0.5f, tile.getPosY()+ TileMap.TILE_SIZE*0.5f);
+							
 						}
 					}else{
 						if (enoughResources(TowerType.HOUSE, tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE,style);
+							playState.getAudioHandler().playSound(AudioHandler.BUILD);
 							tile.setTower(tower);
 							playState.getTowers().addHouse(tower);
-							playState.getMobs().updatePaths();
+							playState.getMobs().updatePaths(tile);
+							playState.getParticleHandler().addParticleEffect(ParticleType.BUILD, tile.getPosX()+ TileMap.TILE_SIZE*0.5f, tile.getPosY()+ TileMap.TILE_SIZE*0.5f);
+							
 						}
 					}	
 				}else{

@@ -31,6 +31,7 @@ public class Mob {
 	private MobHandler handler;
 	
 	private boolean dead;
+	private Tile newTile;
 	
 	private Animation animation;
 	
@@ -62,7 +63,7 @@ public class Mob {
 		float y2;
 		float angle;
 		if (!route.isEmpty()) {
-			if (needToUpdate) {
+			if (needToUpdate && route.contains(newTile)) {
 				LinkedList<Tile> l = PathFinding.calculateRoute(currentTile, route.getFirst());
 				route = l;
 				needToUpdate = false;
@@ -98,7 +99,8 @@ public class Mob {
 		return animation.getFrame();
 	}
 
-	public void updatePath() {
+	public void updatePath(Tile tile) {
+		newTile = tile;
 		needToUpdate = true;
 		
 	}

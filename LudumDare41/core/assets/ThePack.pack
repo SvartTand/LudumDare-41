@@ -185,6 +185,20 @@ Mob8
   orig: 16, 16
   offset: 0, 0
   index: -1
+Particle3
+  rotate: false
+  xy: 1017, 171
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+Particle4
+  rotate: false
+  xy: 1017, 163
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
 Particle1
   rotate: false
   xy: 1, 35
