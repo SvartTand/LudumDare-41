@@ -22,8 +22,6 @@ public class MobHandler {
 	private int waveNumber;
 	private MobWave currentWave;
 	
-	private float textCounter;
-	
 	public MobHandler(PlayState state) {
 		mobList = new ArrayList<Mob>();
 		sum = WAVE_FREQUENCY;
@@ -72,7 +70,6 @@ public class MobHandler {
 		
 		sum -= delta;
 		if (currentWave == null && waveNumber == 1) {
-			textCounter+=delta;
 			
 			if ((int)sum == WAVE_FREQUENCY - 40) {
 			}else if ((int)sum == WAVE_FREQUENCY - 35) {

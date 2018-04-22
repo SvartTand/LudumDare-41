@@ -1,9 +1,6 @@
 package com.svarttand.ld41.sprites;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Circle;
 import com.svarttand.ld41.misc.Animation;
 import com.svarttand.ld41.misc.PathFinding;
@@ -15,8 +12,6 @@ public class Mob {
 	private static final int FREEZE_DURATION = 1;
 	private float posX;
 	private float posY;
-	
-	private String path;
 	
 	private MobType type;
 	
@@ -40,7 +35,6 @@ public class Mob {
 	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler, CardType buff) {
 		posX = x;
 		posY = y;
-		path = "Mob";
 		type = mobType;
 		currentTile = start;
 		getRoute(currentTile, dest);
@@ -68,8 +62,6 @@ public class Mob {
 			speedTemp*=freeze;
 		}
 		
-		float x2;
-		float y2;
 		float angle;
 		if (!route.isEmpty()) {
 			if (needToUpdate && route.contains(newTile)) {
@@ -115,7 +107,6 @@ public class Mob {
 	}
 
 	public boolean isUpdating() {
-		// TODO Auto-generated method stub
 		return needToUpdate;
 	}
 	

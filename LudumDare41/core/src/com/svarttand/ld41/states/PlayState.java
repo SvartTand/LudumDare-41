@@ -1,23 +1,17 @@
 package com.svarttand.ld41.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
 import com.svarttand.ld41.misc.AudioHandler;
-import com.svarttand.ld41.misc.Card;
 import com.svarttand.ld41.misc.ParticleHandler;
 import com.svarttand.ld41.misc.Resources;
 import com.svarttand.ld41.misc.ScreenShake;

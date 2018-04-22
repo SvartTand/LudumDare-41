@@ -9,8 +9,6 @@ import com.svarttand.ld41.sprites.CardType;
 public class Card {
 	
 	private static final int DURATION = 10;
-	
-	private String message;
 	private Label text;
 	private int time;
 	private float x;

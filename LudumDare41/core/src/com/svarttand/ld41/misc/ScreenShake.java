@@ -10,8 +10,6 @@ public class ScreenShake {
 	
 	private float elapsed;
 	private float duration;
-	private float radius;
-	private float randomAngle;
 	private float intensity;
 	
 	public ScreenShake() {
@@ -25,8 +23,7 @@ public class ScreenShake {
 		 System.out.println("SHAKE!!!");
 	    this.elapsed = 0;
 	    this.duration = duration / 1000f;
-	    this.radius = radius ;
-	    this.randomAngle = random.nextFloat() % 360f;
+
 	}
 	
 	public void update(float delta, OrthographicCamera camera) {

@@ -11,12 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 
 public class ParticleHandler {
-	private TextureAtlas generalAtlas;
 	private static HashMap<ParticleType, ParticleEffectPool> pools;
 	private static HashMap<ParticleType, Array<PooledEffect>> activeEffectsMap;
 	
 	public ParticleHandler(TextureAtlas atlas) {
-		this.generalAtlas = atlas;
 		pools = new HashMap<ParticleType, ParticleEffectPool>();
 		activeEffectsMap = new HashMap<ParticleType, Array<PooledEffect>>();
 		
@@ -33,7 +31,7 @@ public class ParticleHandler {
 		}
 	}
 	
-	public static void addParticleEffect(ParticleType type, float x, float y) {
+	public void addParticleEffect(ParticleType type, float x, float y) {
 		PooledEffect effect = pools.get(type).obtain();
 		if (effect != null) {
 			System.out.println("yes");
@@ -42,7 +40,7 @@ public class ParticleHandler {
 		}
 	}
 	
-	public static void addParticleEffect(ParticleType type, float x, float y, int duration) {
+	public void addParticleEffect(ParticleType type, float x, float y, int duration) {
 		PooledEffect effect = pools.get(type).obtain();
 		if (effect != null) {
 			activeEffectsMap.get(type).add(effect);
@@ -51,7 +49,7 @@ public class ParticleHandler {
 		}
 	}
 	
-	public static PooledEffect returnAddedParticleEffect(ParticleType type, float x, float y, int duration) {
+	public PooledEffect returnAddedParticleEffect(ParticleType type, float x, float y, int duration) {
 		PooledEffect effect = pools.get(type).obtain();
 		if (effect != null) {
 			activeEffectsMap.get(type).add(effect);

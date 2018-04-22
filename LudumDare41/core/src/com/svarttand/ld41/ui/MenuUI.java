@@ -17,8 +17,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.states.MenuState;
-import com.svarttand.ld41.ui.PlayUI.State;
-import com.svarttand.ld41.world.TowerType;
 
 public class MenuUI {
 	
