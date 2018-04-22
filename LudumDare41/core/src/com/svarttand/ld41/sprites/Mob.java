@@ -24,13 +24,15 @@ public class Mob {
 	private Tile currentTile;
 	
 	private Circle bounds;
+	private float speed;
 	
 	private float hp;
+	private float dmg;
 	private MobHandler handler;
 	
 	private Animation animation;
 	
-	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler) {
+	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler, CardType buff) {
 		posX = x;
 		posY = y;
 		path = "Mob";
@@ -39,9 +41,11 @@ public class Mob {
 		getRoute(currentTile, dest);
 		needToUpdate = false;
 		bounds = new Circle(posX, posY, type.getRadius());
-		hp = type.getHp();
+		hp = type.getHp()*buff.getHp();
 		this.handler = handler;
 		animation = new Animation(type.getPath(), type.getFrames(), type.getDuration());
+		speed = type.getSpeed()*buff.getSpeed();
+		dmg = type.getPoints()*buff.getDmg();
 	}
 	
 	private void getRoute(Tile start, Tile dest) {
@@ -61,8 +65,8 @@ public class Mob {
 				needToUpdate = false;
 			}
 			angle = (float) Math.atan2(route.getLast().getPosY() - posY, route.getLast().getPosX() - posX);
-			posX += (float) Math.cos(angle) * type.getSpeed() * delta;
-			posY += (float) Math.sin(angle) * type.getSpeed() * delta;
+			posX += (float) Math.cos(angle) * speed * delta;
+			posY += (float) Math.sin(angle) * speed * delta;
 			bounds.x = posX;
 			bounds.y = posY;
 			//System.out.println(posX + ", " + posY);
@@ -70,6 +74,9 @@ public class Mob {
 				route.removeLast();
 				if (!route.isEmpty()) {
 					currentTile = route.getLast();
+				}else{
+					handler.takeDamage(dmg);
+					handler.remove(this, false);
 				}
 			}
 		}
@@ -105,7 +112,7 @@ public class Mob {
 	public void takeDmg(float dmg) {
 		hp -= dmg;
 		if (hp <= 0) {
-			handler.remove(this);
+			handler.remove(this, true);
 		}
 		
 	}

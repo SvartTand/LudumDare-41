@@ -195,8 +195,9 @@ public class PlayUI {
 		}
 	}
 	
-	public void addNewFloatingText(String text,float x, float y, float duration, boolean gravity){
-		floatingTexts.add(new FloatingText(text, x, y, duration, labelStyle, gravity));
+	public void addNewFloatingText(String text,float x, float y, float duration, boolean gravity, int size){
+		floatingTexts.add(new FloatingText(text, x, y, duration, labelStyle, gravity, size));
+		
 	}
 	
 	private void resetButtons(Button button){

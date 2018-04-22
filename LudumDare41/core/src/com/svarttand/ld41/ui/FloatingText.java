@@ -19,12 +19,13 @@ private static final int GRAVITY = 50;
 	
 	private boolean gravity;
 	
-	public FloatingText(String text,float x,float y, float duration, LabelStyle style, boolean gravity){
+	public FloatingText(String text,float x,float y, float duration, LabelStyle style, boolean gravity, float size){
 		this.text = text;
 		this.duration = duration;
 		
 		label = new Label(text, style);
 		label.setPosition(x- label.getWidth()*0.5f, y-label.getHeight()*0.5f);
+		label.setFontScale(size);
 		this.gravity = gravity;
 	}
 	

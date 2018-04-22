@@ -62,14 +62,18 @@ public class GameController implements InputProcessor{
 
 	private void buildTower(Tile tile) {
 		if (playState.getUI().currentState == State.UPGRADE) {
-			
+			if (tile.getTower() != null) {
+				if (enoughResources(tile.getTower().getType(),tile, tile.getTower().getLevel())) {
+					tile.getTower().levelUp();
+				}
+			}
 		}else{
 			if (tile.getTower() == null) {
 				if (!doesBlock(tile)) {
 					//System.out.println("works");
 					Tower tower = null;
 					if (playState.getUI().currentState == State.TOWER1) {
-						if (enoughResources(TowerType.BASIC,tile)) {
+						if (enoughResources(TowerType.BASIC,tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC,style);
 							tile.setTower(tower);
 							playState.getTowers().addTower(tower);
@@ -78,14 +82,14 @@ public class GameController implements InputProcessor{
 						
 						
 					}else if(playState.getUI().currentState == State.TOWER2){
-						if (enoughResources(TowerType.BASIC2,tile)) {
+						if (enoughResources(TowerType.BASIC2,tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2,style);
 							tile.setTower(tower);
 							playState.getTowers().addTower(tower);
 							playState.getMobs().updatePaths();
 						}
 					}else{
-						if (enoughResources(TowerType.HOUSE, tile)) {
+						if (enoughResources(TowerType.HOUSE, tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.HOUSE,style);
 							tile.setTower(tower);
 							playState.getTowers().addHouse(tower);
@@ -94,7 +98,7 @@ public class GameController implements InputProcessor{
 					}	
 				}
 			}else{
-				playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true);
+				playState.getUI().addNewFloatingText("Already Tower There!", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
 			}
 		}
 		
@@ -107,17 +111,17 @@ public class GameController implements InputProcessor{
 		
 	}
 
-	private boolean enoughResources(TowerType type, Tile tile) {
-		if (playState.getResources().getGold() >= type.getCost()) {
-			if (playState.getResources().getPopSpace() >= type.getHousing()) {
-				playState.getResources().buyWithGold(type.getCost());
-				playState.getResources().addPopulation(type.getHousing());
+	private boolean enoughResources(TowerType type, Tile tile, int level) {
+		if (playState.getResources().getGold() >= type.getCost()*level) {
+			if (playState.getResources().getPopSpace() >= type.getHousing()*level) {
+				playState.getResources().buyWithGold(type.getCost()*level);
+				playState.getResources().addPopulation(type.getHousing()*level);
 				return true;
 			}
-			playState.getUI().addNewFloatingText("Not Enough Housing", tile.getPosX(), tile.getPosY(), 1.5f, true);
+			playState.getUI().addNewFloatingText("Not Enough Housing", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
 			return false;
 		}
-		playState.getUI().addNewFloatingText("Not Enough Gold", tile.getPosX(), tile.getPosY(), 1.5f, true);
+		playState.getUI().addNewFloatingText("Not Enough Gold", tile.getPosX(), tile.getPosY(), 1.5f, true,1);
 		return false;
 	}
 

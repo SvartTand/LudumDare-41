@@ -55,7 +55,7 @@ public class TowerHandler {
 	}
 
 	public void removeProjectile(Projectile projectile) {
-		playState.getParticleHandler().addParticleEffect(ParticleType.SPLASH, projectile.getPosX(), projectile.getPosY());
+		playState.getParticleHandler().addParticleEffect(ParticleType.HIT, projectile.getPosX(), projectile.getPosY());
 		projectiles.remove(projectile);
 		
 	}

@@ -51,17 +51,15 @@ public class Tower {
 			if(mobs.contains(target)){
 				if (target.getBounds().overlaps(bounds)) {
 					if (time >= type.getFreq()) {
-						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC, target, type.getDmg()));
+						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC, target, type.getDmg()*level));
 						time = 0;
 					}
 				}else{
 					target = null;
-					System.out.println("yo");
 				}
 			}
 			else{
 				target = null;
-				System.out.println("yo");
 			}
 		}
 		
@@ -95,6 +93,17 @@ public class Tower {
 	public float getHousing() {
 		
 		return type.getHousing();
+	}
+
+	public int getLevel() {
+		// TODO Auto-generated method stub
+		return level;
+	}
+
+	public void levelUp() {
+		level++;
+		levelLabel.setText("" + level);
+		
 	}
 	
 	

@@ -15,8 +15,9 @@ public class MobWave {
 	float time;
 	float interval;
 	MobHandler handler;
+	private CardType buff;
 	
-	public MobWave(float exp, MobHandler handler) {
+	public MobWave(float exp, MobHandler handler, boolean first) {
 		rand = new Random();
 		list = new ArrayList<MobType>();
 		exponent = exp;
@@ -35,6 +36,30 @@ public class MobWave {
 		}
 		interval = MobHandler.WAVE_FREQUENCY/5/list.size()+1;
 		
+		if (!first) {
+			int i = rand.nextInt(6);
+			if (i == 0) {
+				buff = CardType.MORE_HP;
+				System.out.println("HP");
+			}else if (i == 1) {
+				buff = CardType.SPEEDBUFF;
+				System.out.println("Speed");
+			}else if (i == 2) {
+				buff = CardType.ALLSTAR;
+				System.out.println("ALLSTAR");
+			}else if(i == 3) {
+				buff = CardType.MORE_DMG;
+				System.out.println("DMG");
+			}else{
+				buff = CardType.BASIC;
+				System.out.println("Basic");
+			}
+		}else{
+			buff = CardType.BASIC;
+			System.out.println("Basic");
+		}
+		
+		
 		
 	}
 	
@@ -43,13 +68,18 @@ public class MobWave {
 		if (time >= interval && !list.isEmpty()) {
 			System.out.println("Spawn" + interval);
 			int i = rand.nextInt(list.size());
-			handler.addMob(list.get(i));
+			handler.addMob(list.get(i), buff);
 			list.remove(i);
 			time = 0;
 			
 		}
 		
 		
+	}
+
+	public CardType getCardType() {
+		// TODO Auto-generated method stub
+		return buff;
 	}
 
 }

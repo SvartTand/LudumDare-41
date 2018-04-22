@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.svarttand.ld41.Application;
 import com.svarttand.ld41.misc.ParticleType;
 import com.svarttand.ld41.states.PlayState;
 import com.svarttand.ld41.world.Tile;
@@ -25,29 +26,33 @@ public class MobHandler {
 		sum = WAVE_FREQUENCY;
 		this.state = state;
 		waveNumber = 1;
-		currentWave = new MobWave(waveNumber, this);
+		currentWave = new MobWave(waveNumber, this,true);
 		waveNumber = 2;
 		random = new Random();
 	}
 	
-	public void addMob(MobType type){
+	public void addMob(MobType type, CardType buff){
 		int i = random.nextInt(4);
 		
 		if (i == 0) {
 			Tile s3 = state.getMap().getSpawns().get(2);
-			mobList.add(new Mob(810, 810, type, s3, state.getMap().getDestination(), this));
+			mobList.add(new Mob(810, 810, type, s3, state.getMap().getDestination(), this, buff));
 		}else if (i == 1) {
 			Tile s1 = state.getMap().getSpawns().get(0);
-			mobList.add(new Mob(-10, -10, type, s1, state.getMap().getDestination(), this));
+			mobList.add(new Mob(-10, -10, type, s1, state.getMap().getDestination(), this, buff));
 		}else if (i == 2) {
 			Tile s4 = state.getMap().getSpawns().get(3);
-			mobList.add(new Mob(-10, 810, type, s4, state.getMap().getDestination(), this));
+			mobList.add(new Mob(-10, 810, type, s4, state.getMap().getDestination(), this, buff));
 		}else {
 			Tile s2 = state.getMap().getSpawns().get(1);
-			mobList.add(new Mob(810, -10, type, s2, state.getMap().getDestination(), this));
+			mobList.add(new Mob(810, -10, type, s2, state.getMap().getDestination(), this, buff));
 		}
 		
 		
+	}
+	
+	public MobWave getWave(){
+		return currentWave;
 	}
 	
 	public void updatePaths(){
@@ -65,7 +70,8 @@ public class MobHandler {
 		if (sum <= 0) {
 			
 			System.out.println(mobList.size());
-			currentWave = new MobWave(waveNumber, this);
+			currentWave = new MobWave(waveNumber, this, false);
+			state.getUI().addNewFloatingText(currentWave.getCardType().getExplanation(), Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.7f, 10, false, 1);
 			waveNumber++;
 			sum = WAVE_FREQUENCY;
 		}
@@ -85,11 +91,17 @@ public class MobHandler {
 		return mobList;
 	}
 
-	public void remove(Mob mob) {
+	public void remove(Mob mob, boolean killed) {
+		if (killed) {
+			state.getParticleHandler().addParticleEffect(ParticleType.DEATH, mob.getPosX(), mob.getPosY());
+			state.getResources().addGold(mob.getType().getPoints());
+			state.getResources().addScore(mob.getType().getPoints());
+			mobList.remove(mob);
+		}else{
+			mobList.remove(mob);
+		}
 		
-		state.getResources().addGold(mob.getType().getPoints());
-		state.getResources().addScore(mob.getType().getPoints());
-		mobList.remove(mob);
+		
 		
 	}
 	
@@ -100,6 +112,11 @@ public class MobHandler {
 	
 	public int getWaveNumber(){
 		return waveNumber;
+	}
+
+	public void takeDamage(float dmg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

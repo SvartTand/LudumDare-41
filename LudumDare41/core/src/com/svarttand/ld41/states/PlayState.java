@@ -2,16 +2,21 @@ package com.svarttand.ld41.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.input.GameController;
+import com.svarttand.ld41.misc.Card;
 import com.svarttand.ld41.misc.ParticleHandler;
 import com.svarttand.ld41.misc.Resources;
+import com.svarttand.ld41.sprites.CardType;
 import com.svarttand.ld41.sprites.MobHandler;
 import com.svarttand.ld41.ui.PlayUI;
 import com.svarttand.ld41.world.TileMap;
@@ -31,6 +36,10 @@ public class PlayState extends State{
 	private TowerHandler towerHandler;
 
 	private Resources resources;
+	private Card card;
+	
+	private LabelStyle style;
+	private BitmapFont font;
 	
 	
 	private PlayUI ui;
@@ -42,7 +51,8 @@ public class PlayState extends State{
 		textureAtlas = atlas;
 		resources = new Resources(this);
 		ui = new PlayUI(textureAtlas, this);
-		
+		font = new BitmapFont();
+		style = new LabelStyle(font, Color.WHITE);
 		particleHandler = new ParticleHandler(atlas);
 		
 		mobHandler = new MobHandler(this);
@@ -53,7 +63,7 @@ public class PlayState extends State{
 
 		multiplexer.addProcessor(ui.getStage());
 		Gdx.input.setInputProcessor(multiplexer);
-		
+		//card = new Card(Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.5f);
 		
 	}
 
@@ -69,6 +79,7 @@ public class PlayState extends State{
 		towerHandler.update(delta);
 		ui.updateTimer(mobHandler.getTimeToNextWave());
 		ui.updateFloatinTexts(delta);
+		//card.update(delta);
 	}
 
 	@Override
@@ -87,6 +98,7 @@ public class PlayState extends State{
 		batch.draw(textureAtlas.findRegion("PanelTopCenter"), Application.V_WIDTH*0.5f - textureAtlas.findRegion("PanelTopCenter").getRegionWidth()*0.5f, Application.V_HEIGHT- textureAtlas.findRegion("PanelTopCenter").getRegionHeight());
 		particleHandler.render(batch, delta);
 		ui.render(batch);
+		//card.render(batch, textureAtlas);
 		batch.end();
 		ui.getStage().draw();
 		
@@ -96,6 +108,7 @@ public class PlayState extends State{
 	public void dispose() {
 		ui.getStage().dispose();
 		controller.dispose();
+		font.dispose();
 		
 	}
 
@@ -127,6 +140,11 @@ public class PlayState extends State{
 	
 	public ParticleHandler getParticleHandler(){
 		return particleHandler;
+	}
+	
+	public void updateCard(CardType type){
+//		card.init(type, style);
+//		System.out.println("set");
 	}
 
 }
