@@ -62,6 +62,7 @@ public class MenuState extends State {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
+		ui.getStage().getViewport().update(width, height);
 
 	}
 

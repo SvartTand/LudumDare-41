@@ -50,8 +50,8 @@ public class TileMap {
 		}
 	}
 
-	public Tile getTileConvert(int screenX, int screenY) {
-		return map[screenX/TILE_SIZE][SIZE-1 - (screenY/TILE_SIZE)];
+	public Tile getTileConvert(float x, float y) {
+		return map[(int) (x/TILE_SIZE)][(int) (SIZE-1 - (y/TILE_SIZE)+1)];
 		
 	}
 	

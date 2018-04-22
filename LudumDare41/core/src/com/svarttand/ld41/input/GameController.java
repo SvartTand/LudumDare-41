@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.svarttand.ld41.Application;
 import com.svarttand.ld41.misc.AudioHandler;
@@ -50,7 +51,8 @@ public class GameController implements InputProcessor{
 		
 		//playState.getShake().shake(500, 500, 500);
 		if (screenY < Gdx.graphics.getHeight() * 0.883f) {
-			Tile tile = playState.getMap().getTileConvert(screenX, screenY);
+			
+			Tile tile = playState.getMap().getTileConvert(convertToGameCordinates(screenX, screenY).x, convertToGameCordinates(screenX, screenY).y);
 			System.out.println(tile.getPosX()/32 + ", " + tile.getPosY()/32);
 			System.out.println(playState.getUI().currentState);
 			if (playState.getUI().currentState != State.NONE) {
@@ -94,6 +96,16 @@ public class GameController implements InputProcessor{
 					}else if(playState.getUI().currentState == State.TOWER2){
 						if (enoughResources(TowerType.BASIC2,tile,1)) {
 							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.BASIC2,style);
+							playState.getAudioHandler().playSound(AudioHandler.BUILD);
+							tile.setTower(tower);
+							playState.getTowers().addTower(tower);
+							playState.getMobs().updatePaths(tile);
+							playState.getParticleHandler().addParticleEffect(ParticleType.BUILD, tile.getPosX()+ TileMap.TILE_SIZE*0.5f, tile.getPosY()+ TileMap.TILE_SIZE*0.5f);
+							
+						}
+					}else if(playState.getUI().currentState == State.ICE){
+						if (enoughResources(TowerType.ICE,tile,1)) {
+							tower = new Tower(tile, tile.getPosX(), tile.getPosY(), TowerType.ICE,style);
 							playState.getAudioHandler().playSound(AudioHandler.BUILD);
 							tile.setTower(tower);
 							playState.getTowers().addTower(tower);
@@ -186,5 +198,28 @@ public class GameController implements InputProcessor{
 	public void dispose(){
 		font.dispose();
 	}
+	
+	private Vector2 convertToGameCordinates(int x, int y){
+		Vector2 v = new Vector2(0,0);
+		
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		
+		 w = w / Application.V_WIDTH;
+		 h = h / Application.V_HEIGHT;
+		 
+		 w = x / w;
+		 h = y / h;
+		 
+		 w = (float) (playState.getCam().position.x  + w - Application.V_WIDTH * 0.5);
+		 h = (float) ( -playState.getCam().position.y + h + Application.V_HEIGHT*0.5);
+		 
+		 
+		 v.x = w;
+		 v.y = h;
+		
+		return v;
+	}
+
 
 }

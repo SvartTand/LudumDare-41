@@ -12,6 +12,7 @@ import com.svarttand.ld41.world.TileMap;
 
 public class Mob {
 	
+	private static final int FREEZE_DURATION = 1;
 	private float posX;
 	private float posY;
 	
@@ -34,6 +35,7 @@ public class Mob {
 	private Tile newTile;
 	
 	private Animation animation;
+	private float freeze;
 	
 	public Mob(int x, int y, MobType mobType, Tile start, Tile dest, MobHandler handler, CardType buff) {
 		posX = x;
@@ -50,6 +52,8 @@ public class Mob {
 		speed = type.getSpeed()*buff.getSpeed();
 		dmg = type.getPoints()*buff.getDmg();
 		dead = false;
+		freeze = FREEZE_DURATION+1;
+		
 	}
 	
 	private void getRoute(Tile start, Tile dest) {
@@ -58,6 +62,11 @@ public class Mob {
 
 	public void update(float delta){
 		animation.update(delta);
+		freeze += delta;
+		float speedTemp = speed;
+		if (freeze <= FREEZE_DURATION) {
+			speedTemp*=freeze;
+		}
 		
 		float x2;
 		float y2;
@@ -69,8 +78,8 @@ public class Mob {
 				needToUpdate = false;
 			}
 			angle = (float) Math.atan2(route.getLast().getPosY() - posY, route.getLast().getPosX() - posX);
-			posX += (float) Math.cos(angle) * speed * delta;
-			posY += (float) Math.sin(angle) * speed * delta;
+			posX += (float) Math.cos(angle) * speedTemp * delta;
+			posY += (float) Math.sin(angle) * speedTemp * delta;
 			bounds.x = posX;
 			bounds.y = posY;
 			//System.out.println(posX + ", " + posY);
@@ -114,7 +123,10 @@ public class Mob {
 		return bounds;
 	}
 
-	public void takeDmg(float dmg) {
+	public void takeDmg(float dmg, Boolean freeze) {
+		if (freeze) {
+			this.freeze = 0;
+		}
 		hp -= dmg;
 		if (hp <= 0 && !dead) {
 			handler.remove(this, true);

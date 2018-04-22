@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -135,6 +136,7 @@ public class PlayState extends State{
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
+		ui.getStage().getViewport().update(width, height);
 		
 	}
 
@@ -178,6 +180,11 @@ public class PlayState extends State{
 	public void gameLost() {
 		gsm.pop();
 		
+	}
+
+	public OrthographicCamera getCam() {
+		// TODO Auto-generated method stub
+		return cam;
 	}
 
 }

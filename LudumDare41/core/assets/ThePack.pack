@@ -73,14 +73,14 @@ MobS1
   orig: 24, 24
   offset: 0, 0
   index: -1
-House
+FireTower1
   rotate: false
   xy: 295, 125
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-Tile
+FireTower2
   rotate: false
   xy: 965, 189
   size: 32, 32
@@ -94,6 +94,20 @@ MobS2
   orig: 24, 24
   offset: 0, 0
   index: -1
+FireTower3
+  rotate: false
+  xy: 329, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+FireTower4
+  rotate: false
+  xy: 965, 155
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 MobS3
   rotate: false
   xy: 999, 179
@@ -101,23 +115,114 @@ MobS3
   orig: 24, 24
   offset: 0, 0
   index: -1
+FireTower5
+  rotate: false
+  xy: 363, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+House
+  rotate: false
+  xy: 965, 121
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceTower1
+  rotate: false
+  xy: 397, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceTower2
+  rotate: false
+  xy: 965, 87
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceTower3
+  rotate: false
+  xy: 431, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceTower4
+  rotate: false
+  xy: 965, 53
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceTower5
+  rotate: false
+  xy: 465, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Tile
+  rotate: false
+  xy: 499, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 Tower
   rotate: false
-  xy: 965, 155
+  xy: 533, 125
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower1
   rotate: false
-  xy: 329, 125
+  xy: 567, 125
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Tower2
   rotate: false
-  xy: 965, 121
+  xy: 601, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowTower1
+  rotate: false
+  xy: 635, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowTower2
+  rotate: false
+  xy: 669, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowTower3
+  rotate: false
+  xy: 703, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowTower4
+  rotate: false
+  xy: 737, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowTower5
+  rotate: false
+  xy: 295, 91
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -131,35 +236,35 @@ Mob
   index: -1
 Mob1
   rotate: false
-  xy: 99, 75
+  xy: 999, 161
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob2
   rotate: false
-  xy: 295, 107
+  xy: 965, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob3
   rotate: false
-  xy: 999, 161
+  xy: 771, 141
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob4
   rotate: false
-  xy: 363, 141
+  xy: 99, 75
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob5
   rotate: false
-  xy: 965, 103
+  xy: 329, 107
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -173,28 +278,42 @@ Mob6
   index: -1
 Mob7
   rotate: false
-  xy: 117, 75
+  xy: 999, 143
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob8
   rotate: false
-  xy: 313, 107
+  xy: 117, 75
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-Particle3
+IceProjectile
   rotate: false
   xy: 1017, 171
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
   index: -1
-Particle4
+Particle3
   rotate: false
   xy: 1017, 163
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+Particle4
+  rotate: false
+  xy: 1017, 155
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+projectile
+  rotate: false
+  xy: 1017, 147
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
@@ -211,12 +330,5 @@ Particle2
   xy: 1, 31
   size: 2, 2
   orig: 2, 2
-  offset: 0, 0
-  index: -1
-projectile
-  rotate: false
-  xy: 99, 69
-  size: 4, 4
-  orig: 4, 4
   offset: 0, 0
   index: -1

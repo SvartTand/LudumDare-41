@@ -32,7 +32,7 @@ public class Projectile {
 		
 		if (posX >= destX-4 && posX <= destX+4 && posY >= destY-4 && posY <= destY+4) {
 			handler.removeProjectile(this);
-			target.takeDmg(dmg);
+			target.takeDmg(dmg, type.getFreeze());
 		}
 	}
 

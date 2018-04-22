@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.svarttand.ld41.misc.Animation;
 import com.svarttand.ld41.sprites.Mob;
 
 public class Tower {
@@ -24,6 +25,8 @@ public class Tower {
 	
 	private Label levelLabel;
 	
+	private Animation animation;
+	
 	public Tower(Tile tile, float f, float g, TowerType type, LabelStyle style) {
 		posX = f;
 		posY = g;
@@ -35,10 +38,18 @@ public class Tower {
 		level = 1;
 		levelLabel = new Label("" + level, style);
 		levelLabel.setPosition(posX, posY);
+		if (type != TowerType.HOUSE) {
+			animation = new Animation(type.getPath(), type.getFrame(), 0.5f);
+		}
+		
 	}
 	
 	public void update(float delta, ArrayList<Mob> mobs, TowerHandler handler){
 		time += delta;
+		if (type != TowerType.HOUSE) {
+			animation.update(delta);
+		}
+		
 		
 		if (target == null) {
 			for (int i = 0; i < mobs.size(); i++) {
@@ -51,7 +62,7 @@ public class Tower {
 			if(mobs.contains(target)){
 				if (target.getBounds().overlaps(bounds)) {
 					if (time >= type.getFreq()) {
-						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(), ProjectileType.BASIC, target, type.getDmg()*level));
+						handler.addProjectile(new Projectile(posX + OFFSET, posY + OFFSET, target.getPosX(), target.getPosY(),type.getBullet(), target, type.getDmg()*level));
 						time = 0;
 					}
 				}else{
@@ -83,7 +94,11 @@ public class Tower {
 	}
 
 	public String getPath() {
+		if (type != TowerType.HOUSE) {
+			return animation.getFrame();
+		}
 		return type.getPath();
+		
 	}
 	
 	public TowerType getType(){

@@ -26,11 +26,11 @@ import com.svarttand.ld41.world.TowerType;
 
 public class PlayUI {
 	
-	public enum State {NONE, TOWER1, TOWER2, HOUSE, UPGRADE};
+	public enum State {NONE, TOWER1, TOWER2, HOUSE, UPGRADE, ICE};
 	public State currentState;
 	
 	private static final int MAX_HP = 50;
-	private static final float RECT_WIDTH = 300;
+	private static final float RECT_WIDTH = 250;
 	private static final float RECT_HEIGHT = 30;
 	
 	private OrthographicCamera camera;
@@ -46,6 +46,7 @@ public class PlayUI {
 	private Button buildButton2;
 	private Button buildHouseButton;
 	private Button upgradeButton;
+	private Button buildIce;
 	
 	private ArrayList<Button> buttonList;
 	
@@ -59,6 +60,7 @@ public class PlayUI {
 	private Label score;
 	private Label hpText;
 	private Label nextWave;
+	private Label iceCost;
 	
 	private PlayState state;
 	
@@ -107,7 +109,7 @@ public class PlayUI {
 	    stage.addActor(buildButton);
 	    
 	    
-	    buildButton2 = new TextButton("Build Tower2", style);
+	    buildButton2 = new TextButton("Build \nFire-Tower", style);
 	    buildButton2.setPosition(Application.V_WIDTH*0.14f, Application.V_HEIGHT*0.01f);
 	    buildButton2.addListener( new ClickListener() {
 	         @Override
@@ -122,8 +124,23 @@ public class PlayUI {
 	        });
 	    stage.addActor(buildButton2);
 	    
+	    buildIce = new TextButton("Build \nIce-Tower", style);
+	    buildIce.setPosition(Application.V_WIDTH*0.27f, Application.V_HEIGHT*0.01f);
+	    buildIce.addListener( new ClickListener() {
+	         @Override
+	         public void clicked(InputEvent event, float x, float y) {
+	        	 System.out.println("Build Ice");
+	        	 	resetButtons(buildIce);
+	        		 currentState = State.ICE;
+	        		 noChecked();
+	        		 state.getAudioHandler().playSound(AudioHandler.SELECT);
+	        	 
+	            }
+	        });
+	    stage.addActor(buildIce);
+	    
 	    buildHouseButton = new TextButton("Build House", style);
-	    buildHouseButton.setPosition(Application.V_WIDTH*0.27f, Application.V_HEIGHT*0.01f);
+	    buildHouseButton.setPosition(Application.V_WIDTH*0.4f, Application.V_HEIGHT*0.01f);
 	    buildHouseButton.addListener( new ClickListener() {
 	         @Override
 	         public void clicked(InputEvent event, float x, float y) {
@@ -139,7 +156,7 @@ public class PlayUI {
 	    stage.addActor(buildHouseButton);
 	    
 	    upgradeButton = new TextButton("Upgrade", style);
-	    upgradeButton.setPosition(Application.V_WIDTH*0.4f, Application.V_HEIGHT*0.01f);
+	    upgradeButton.setPosition(Application.V_WIDTH*0.53f, Application.V_HEIGHT*0.01f);
 	    upgradeButton.addListener( new ClickListener() {
 	         @Override
 	         public void clicked(InputEvent event, float x, float y) {
@@ -158,22 +175,26 @@ public class PlayUI {
 	    buttonList.add(buildButton2);
 	    buttonList.add(buildHouseButton);
 	    buttonList.add(upgradeButton);
+	    buttonList.add(buildIce);
 	    
 	}
 	
 	private void generateLabels(){
 		labelStyle = new LabelStyle(font, Color.WHITE);
-		Tower1Cost = new Label("Gold: " + (int)TowerType.BASIC.getCost() , labelStyle);
+		Tower1Cost = new Label("Gold: " + (int)TowerType.BASIC.getCost() + ",Pop: " + (int) TowerType.BASIC.getHousing() , labelStyle);
 		Tower1Cost.setPosition(Application.V_WIDTH *0.01f, Application.V_HEIGHT*0.09f);
 		
-		Tower2Cost = new Label("Gold: " +(int) TowerType.BASIC2.getCost() , labelStyle);
+		Tower2Cost = new Label("Gold: " +(int) TowerType.BASIC2.getCost() + ",Pop: " + (int) TowerType.BASIC2.getHousing() , labelStyle);
 		Tower2Cost.setPosition(Application.V_WIDTH *0.14f, Application.V_HEIGHT*0.09f);
 		
+		iceCost = new Label("Gold: " +(int) TowerType.ICE.getCost() + ",Pop: " + (int) TowerType.ICE.getHousing() , labelStyle);
+		iceCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
+		
 		HouseCost = new Label("Gold: " +(int) TowerType.HOUSE.getCost() , labelStyle);
-		HouseCost.setPosition(Application.V_WIDTH *0.27f, Application.V_HEIGHT*0.09f);
+		HouseCost.setPosition(Application.V_WIDTH *0.4f, Application.V_HEIGHT*0.09f);
 		
 		UpgradeCost = new Label("Gold: Cost * Level" , labelStyle);
-		UpgradeCost.setPosition(Application.V_WIDTH *0.4f, Application.V_HEIGHT*0.09f);
+		UpgradeCost.setPosition(Application.V_WIDTH *0.53f, Application.V_HEIGHT*0.09f);
 		
 		resources = new Label("Gold: " + (int) state.getResources().getGold() + ", Population: " + (int)state.getResources().getPopulation() + "/" + (int) state.getResources().getHousing(), labelStyle);
 		resources.setPosition(Application.V_WIDTH*0.5f - resources.getWidth()*0.5f, Application.V_HEIGHT*0.975f);
@@ -185,7 +206,7 @@ public class PlayUI {
 		nextWave.setPosition((Application.V_WIDTH*0.99f - nextWave.getWidth()), Application.V_HEIGHT*0.975f);
 		
 		hpText = new Label("" + hp + "/" + MAX_HP, labelStyle);
-		hpText.setPosition((Application.V_WIDTH*0.78f - hpText.getWidth()), Application.V_HEIGHT*0.045f);
+		hpText.setPosition((Application.V_WIDTH*0.84f - hpText.getWidth()), Application.V_HEIGHT*0.045f);
 		
 		stage.addActor(Tower1Cost);
 		stage.addActor(Tower2Cost);
@@ -195,6 +216,7 @@ public class PlayUI {
 		stage.addActor(score);
 		stage.addActor(nextWave);
 		stage.addActor(hpText);
+		stage.addActor(iceCost);
 	}
 	public void updateTimer(float time){
 		nextWave.setText("Next Wave in: " +(int) time);
@@ -250,9 +272,9 @@ public class PlayUI {
 		renderer.setProjectionMatrix(camera.combined);
 		renderer.begin(ShapeType.Filled);
 		renderer.setColor(Color.BLACK);
-		renderer.rect(Application.V_WIDTH*0.6f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, RECT_WIDTH, RECT_HEIGHT);
+		renderer.rect(Application.V_WIDTH*0.7f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, RECT_WIDTH, RECT_HEIGHT);
 		renderer.setColor(Color.FIREBRICK);
-		renderer.rect(Application.V_WIDTH*0.6f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, (float)hp/MAX_HP * RECT_WIDTH, RECT_HEIGHT);
+		renderer.rect(Application.V_WIDTH*0.7f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, (float)hp/MAX_HP * RECT_WIDTH, RECT_HEIGHT);
 		renderer.end();
 		
 	}
