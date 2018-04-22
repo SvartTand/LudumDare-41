@@ -154,4 +154,9 @@ public class PlayState extends State{
 //		System.out.println("set");
 	}
 
+	public void gameLost() {
+		gsm.pop();
+		
+	}
+
 }

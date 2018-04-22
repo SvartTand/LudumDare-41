@@ -255,6 +255,9 @@ public class PlayUI {
 	public void takeHP(float dmg){
 		hp -= dmg;
 		hpText.setText("" + hp + "/" + MAX_HP);
+		if (hp <= 0) {
+			state.gameLost();
+		}
 	}
 	
 	public void dispose(){

@@ -29,7 +29,7 @@ public class MobWave {
 			list.add(MobType.MOB);
 		}
 		for (int j = 0; j < BASIC_AMOUNT[1]*exponent; j++) {
-			list.add(MobType.MOB);
+			list.add(MobType.SLIME);
 		}
 		for (int j = 0; j < BASIC_AMOUNT[2]*exponent; j++) {
 			list.add(MobType.MOB);

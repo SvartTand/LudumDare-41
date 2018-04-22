@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.svarttand.ld41.Application;
+import com.svarttand.ld41.ui.MenuUI;
 
 public class MenuState extends State {
 	
 	private Viewport viewport;
 	private TextureAtlas textureAtlas;
+	private MenuUI ui;
+	private boolean b;
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
@@ -21,8 +24,7 @@ public class MenuState extends State {
         cam.update();
         viewport.apply();
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        
-        
+        ui = new MenuUI(this, textureAtlas);
        
 	}
 
@@ -34,9 +36,10 @@ public class MenuState extends State {
 
 	@Override
 	public void update(float delta) {
-		System.out.println("Main");
-		gsm.push(new PlayState(gsm, textureAtlas));
-
+		if (b) {
+			ui.init();
+			b = false;
+		}
 	}
 
 	@Override
@@ -46,6 +49,7 @@ public class MenuState extends State {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.end();
+		ui.getStage().draw();
 
 	}
 
@@ -59,6 +63,12 @@ public class MenuState extends State {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 
+	}
+
+	public void addPlayState() {
+		gsm.push(new PlayState(gsm, textureAtlas));
+		b = true;
+		
 	}
 
 }

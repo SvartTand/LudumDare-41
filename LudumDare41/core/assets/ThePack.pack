@@ -66,6 +66,13 @@ Center
   orig: 32, 32
   offset: 0, 0
   index: -1
+MobS1
+  rotate: false
+  xy: 999, 231
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
 House
   rotate: false
   xy: 295, 125
@@ -80,23 +87,37 @@ Tile
   orig: 32, 32
   offset: 0, 0
   index: -1
-Tower
+MobS2
   rotate: false
-  xy: 329, 125
-  size: 32, 32
-  orig: 32, 32
+  xy: 999, 205
+  size: 24, 24
+  orig: 24, 24
   offset: 0, 0
   index: -1
-Tower1
+MobS3
+  rotate: false
+  xy: 999, 179
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+Tower
   rotate: false
   xy: 965, 155
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+Tower1
+  rotate: false
+  xy: 329, 125
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 Tower2
   rotate: false
-  xy: 363, 125
+  xy: 965, 121
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -117,28 +138,28 @@ Mob1
   index: -1
 Mob2
   rotate: false
-  xy: 999, 239
+  xy: 295, 107
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob3
   rotate: false
-  xy: 295, 107
+  xy: 999, 161
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob4
   rotate: false
-  xy: 965, 137
+  xy: 363, 141
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Mob5
   rotate: false
-  xy: 397, 141
+  xy: 965, 103
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -159,7 +180,7 @@ Mob7
   index: -1
 Mob8
   rotate: false
-  xy: 999, 221
+  xy: 313, 107
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
