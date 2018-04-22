@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -41,6 +42,7 @@ public class PlayState extends State{
 	private LabelStyle style;
 	private BitmapFont font;
 	
+	private ShapeRenderer sRenderer;
 	
 	private PlayUI ui;
 	public PlayState(GameStateManager gsm, TextureAtlas atlas) {
@@ -63,6 +65,8 @@ public class PlayState extends State{
 
 		multiplexer.addProcessor(ui.getStage());
 		Gdx.input.setInputProcessor(multiplexer);
+		
+		sRenderer = new ShapeRenderer();
 		//card = new Card(Application.V_WIDTH*0.5f, Application.V_HEIGHT*0.5f);
 		
 	}
@@ -84,6 +88,7 @@ public class PlayState extends State{
 
 	@Override
 	public void render(SpriteBatch batch, float delta) {
+		
 		batch.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClearColor(0, (float) 0.6, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -100,7 +105,9 @@ public class PlayState extends State{
 		ui.render(batch);
 		//card.render(batch, textureAtlas);
 		batch.end();
+		ui.render(sRenderer);
 		ui.getStage().draw();
+		
 		
 	}
 

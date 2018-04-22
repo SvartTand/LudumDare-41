@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -25,6 +27,10 @@ public class PlayUI {
 	
 	public enum State {NONE, TOWER1, TOWER2, HOUSE, UPGRADE};
 	public State currentState;
+	
+	private static final int MAX_HP = 50;
+	private static final float RECT_WIDTH = 300;
+	private static final float RECT_HEIGHT = 30;
 	
 	private OrthographicCamera camera;
 	private Viewport viewport;
@@ -50,9 +56,14 @@ public class PlayUI {
 	private Label UpgradeCost;
 	private LabelStyle labelStyle;
 	private Label score;
+	private Label hpText;
 	private Label nextWave;
 	
 	private PlayState state;
+	
+	private int hp;
+	
+	
 	
 	ArrayList<FloatingText> floatingTexts;
 	
@@ -75,6 +86,7 @@ public class PlayUI {
 	    style.checked = skin.getDrawable("ButtonChecked");
 	    style.disabled = skin.getDrawable("Button");
 	    
+	    hp = 50;
 	    
 	    generateLabels();
 	    
@@ -167,6 +179,9 @@ public class PlayUI {
 		nextWave = new Label("Next Wave in: " + 60, labelStyle);
 		nextWave.setPosition((Application.V_WIDTH*0.99f - nextWave.getWidth()), Application.V_HEIGHT*0.975f);
 		
+		hpText = new Label("" + hp + "/" + MAX_HP, labelStyle);
+		hpText.setPosition((Application.V_WIDTH*0.78f - hpText.getWidth()), Application.V_HEIGHT*0.045f);
+		
 		stage.addActor(Tower1Cost);
 		stage.addActor(Tower2Cost);
 		stage.addActor(HouseCost);
@@ -174,6 +189,7 @@ public class PlayUI {
 		stage.addActor(resources);
 		stage.addActor(score);
 		stage.addActor(nextWave);
+		stage.addActor(hpText);
 	}
 	public void updateTimer(float time){
 		nextWave.setText("Next Wave in: " +(int) time);
@@ -223,6 +239,22 @@ public class PlayUI {
 		}
 		currentState = State.NONE;
 		
+	}
+	
+	public void render(ShapeRenderer renderer){
+		renderer.setProjectionMatrix(camera.combined);
+		renderer.begin(ShapeType.Filled);
+		renderer.setColor(Color.BLACK);
+		renderer.rect(Application.V_WIDTH*0.6f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, RECT_WIDTH, RECT_HEIGHT);
+		renderer.setColor(Color.FIREBRICK);
+		renderer.rect(Application.V_WIDTH*0.6f - MAX_HP*0.5f, Application.V_HEIGHT*0.04f, (float)hp/MAX_HP * RECT_WIDTH, RECT_HEIGHT);
+		renderer.end();
+		
+	}
+	
+	public void takeHP(float dmg){
+		hp -= dmg;
+		hpText.setText("" + hp + "/" + MAX_HP);
 	}
 	
 	public void dispose(){

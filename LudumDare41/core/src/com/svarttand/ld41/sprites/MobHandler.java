@@ -115,7 +115,7 @@ public class MobHandler {
 	}
 
 	public void takeDamage(float dmg) {
-		// TODO Auto-generated method stub
+		state.getUI().takeHP(dmg);
 		
 	}
 	

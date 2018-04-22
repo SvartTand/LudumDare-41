@@ -2,7 +2,7 @@ package com.svarttand.ld41.sprites;
 
 public enum MobType {
 	
-	MOB("Mob", 50, 500, 10, 8, 8, 0.5f);
+	MOB("Mob", 50, 500, 5, 8, 8, 0.5f);
 	
 	private int speed;
 	private String path;
